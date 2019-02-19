@@ -253,7 +253,7 @@ brics["name2"] = brics["country"].apply(str.upper)
 np.random.seed(123)
 
 coin = np.random.randint(0, 2) # randomly generate 0 or 1
-print(np.random.randint(1,7)) # randomly simulate a dice
+print(np.random.randint(1, 7)) # randomly simulate a dice
 
 step = 50
 # roll the dice..
@@ -270,7 +270,7 @@ print(dice)
 print(step)
 
 
-# random walk..
+# toss game..
 outcomes = []
 for x in range(10):
     coin = np.random.randint(0,2)
@@ -279,11 +279,71 @@ for x in range(10):
     else:
         outcomes.append("tails")
     print(outcomes)
+    print(x)
+
+# random walk of steps..
+np.random.seed(123)
+random_walk = [0]
+for x in range(100):
+    step = random_walk[-1] # last value
+    dice = np.random.randint(1,7)
+
+    if dice <= 2:
+        step = max(0, step - 1) # ..can't go below 0
+    elif dice <= 5:
+        step = step + 1
+    else:
+        step = step + np.random.randint(1,7)
+    print(step)
+    random_walk.append(step)
+
+# plot random_walk..
+plt.plot(random_walk)
+
+# what's the chance that you reach 60 steps high?
+# 100 runs of 10 tosses..
+final_tails = []
+for x in range(1000):
+    tails = [0]
+    for x in range(10):
+        coin = np.random.randint(0, 2)
+        tails.append(tails[x] + coin)
+    final_tails.append(tails[-1])
+    print(final_tails)
+
+plt.hist(final_tails, bins=10)
+plt.show()
 
 
+# simulation: 250 runs of steps problem..
+all_walks = []
+for i in range(250):
+    random_walk = [0]
+    for x in range(100):
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
 
+        # Implement clumsiness -> 0.1% chance of falling down
+        if np.random.rand(1) <= 0.001:
+            step = 0
 
+        random_walk.append(step)
+    all_walks.append(random_walk)
 
+np_aw_t = np.transpose(np.array(all_walks))
+# path..
+plt.plot(np_aw_t)
+# distribution (last step)..
+ends = np_aw_t[-1]
+plt.hist(ends)
+# probabilty for reaching 60 steps high..
+print(len(ends[ends >= 60]) / len(ends))
 
 
 
