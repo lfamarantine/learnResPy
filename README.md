@@ -3,8 +3,8 @@ Datacamp exercises based on Data Scientist with Python course
 
 # Agenda
 
-| | topic	| date	| progress
-| | ----- | ----- | --------
+#| topic	| date	| progress
+-| ------ | ----- | --------
 1 | intro to python for data science	| Jan-19	| done
 2 | intermediate python for data science	| Feb-19	| done
 3 | python data science toolbox (part I)	| Feb-19	| done
