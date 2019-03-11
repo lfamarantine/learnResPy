@@ -1,10 +1,14 @@
 # Importing Data into Python (Part 1)
 # -----------------------------------
 import pickle
+import h5py
 import numpy as np
 import pandas as pd
 import os # for exploring working directory or operating system interfaces
 from sas7bdat import SAS7BDAT
+import scipy.io
+from sqlalchemy import create_engine
+
 
 # 1. Introduction and flat files..
 # --------------------------------
@@ -58,6 +62,7 @@ data_array = data['life_exp'].values
 # customizing pandas import to allow for NA' handling, empty lines or comments..
 data = pd.read_csv('data/titanic_sub.csv', sep=',', comment='#', na_values='NaN')
 
+
 # 2. Importing data from other file types..
 # -----------------------------------------
 # excel, matlab, sas, stata, hdf5
@@ -91,11 +96,54 @@ wd = os.getcwd()
 # contents of directory..
 os.listdir(wd)
 
-# sas & stata files..
+# import from sas & stata files..
+# ..sas
+with SAS7BDAT('data/sales.sas7bdat') as file:
+    df_sas = file.to_data_frame()
+print(df_sas.head())
+# ..stata
+df = pd.read_stata('data/disarea.dta')
+
+# importing HDF5 files..
+# HDF5: hierarchical data format version 5
+# - standard for storing large quantities of numerical data
+# - datasets can be hundreds of gigabytes or terabytes & can scale to exabytes
+
+filename = 'data/LIGO.hdf5'
+data = h5py.File(filename, 'r')
+print(type(data))
+# structure of hdf5 file..
+for key in data.keys():
+    print(key)
+for key in data['meta'].keys():
+    print(key)
+print(data['meta']['Description'].value)
+print(data['meta'])
+# extracting data from hdf5 file..
+group = data['strain']
+for key in group.keys():
+    print(key)
+strain = data['strain']['Strain'].value
+# access the data..
+strain[:10000]
+
+# importing matlab files..
+filename = 'data/ja_data2.mat'
+mat = scipy.io.loadmat(filename)
+print(type(mat))
+for key in mat.keys():
+    print(key)
+# dimensions of array..
+print(np.shape(mat['cfpCyt']))
 
 
+# 3. Working with relational databases in Python
+# ----------------------------------------------
+# Todd's 12 Rules/Commandments (12 rules actually but 1st rule is 0-indexed)
 
-
+engine = create_engine('sqlite:///data/Chinook.sqlite')
+# get table names of db..
+table_names = engine.table_names()
 
 
 
