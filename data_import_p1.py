@@ -1,5 +1,10 @@
 # Importing Data into Python (Part 1)
 # -----------------------------------
+import pickle
+import numpy as np
+import pandas as pd
+import os # for exploring working directory or operating system interfaces
+from sas7bdat import SAS7BDAT
 
 # 1. Introduction and flat files..
 # --------------------------------
@@ -53,8 +58,51 @@ data_array = data['life_exp'].values
 # customizing pandas import to allow for NA' handling, empty lines or comments..
 data = pd.read_csv('data/titanic_sub.csv', sep=',', comment='#', na_values='NaN')
 
-# 2. Importing data from other flat files..
+# 2. Importing data from other file types..
 # -----------------------------------------
+# excel, matlab, sas, stata, hdf5
+# native python file: pickled files (serialized; convert object to sequence of bytes or bytestream)
+
+# save a dictionary into a pickle file..
+favorite_color = {"lion": "yellow", "kitty": "red"}
+pickle.dump(favorite_color, open("data/fav_col.p", "wb"))
+# load pickle file..
+favorite_color = pickle.load(open("data/fav_col.p", "rb")) # rb: read-only & binary
+# or..
+with open('data/fav_col.p', 'rb') as file:
+    d = pickle.load(file)
+
+# import excel spreadsheet..
+data = pd.ExcelFile('data/battledeath.xlsx')
+# print sheet names..
+print(data.sheet_names)
+# load a particular sheet as a dataframe (either by sheet-name or sheet-index)..
+df1 = data.parse('2002')
+df1 = data.parse(0)
+print(df1.head())
+
+# custom spreadsheet import..
+# .. parse the 1st column of the 2nd sheet and rename the column..
+xl = pd.ExcelFile('data/battledeath.xlsx')
+df1 = xl.parse(0, skiprows=[0], names=['Country','AAM due to War (2002)'])
+
+# get working directory
+wd = os.getcwd()
+# contents of directory..
+os.listdir(wd)
+
+# sas & stata files..
+
+
+
+
+
+
+
+
+
+
+
 
 
 
