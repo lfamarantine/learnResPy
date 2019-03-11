@@ -1,8 +1,8 @@
 # Importing Data into Python (Part 1)
 # -----------------------------------
 
-import pandas as pd
-import numpy as np
+# 1. Introduction and flat files..
+# --------------------------------
 
 # reading a text file..
 # ---
@@ -53,6 +53,8 @@ data_array = data['life_exp'].values
 # customizing pandas import to allow for NA' handling, empty lines or comments..
 data = pd.read_csv('data/titanic_sub.csv', sep=',', comment='#', na_values='NaN')
 
+# 2. Importing data from other flat files..
+# -----------------------------------------
 
 
 
