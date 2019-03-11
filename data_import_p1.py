@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import os # for exploring working directory or operating system interfaces
 from sas7bdat import SAS7BDAT
-import scipy.io
+import scipy.io # installation: python -m pip install scipy
 from sqlalchemy import create_engine
 
 
@@ -23,6 +23,7 @@ file.close()
 # context managers with..
 with open('data/seaslug.txt','r') as file:
     print(file.read())
+
 # ..
 
 # import flat files..
@@ -141,10 +142,26 @@ print(np.shape(mat['cfpCyt']))
 # ----------------------------------------------
 # Todd's 12 Rules/Commandments (12 rules actually but 1st rule is 0-indexed)
 
+# sql-lite..
+# ---
 engine = create_engine('sqlite:///data/Chinook.sqlite')
 # get table names of db..
 table_names = engine.table_names()
+# connect to db..
+con = engine.connect()
+# execute a sql query..
+rs = con.execute('select * from Album')
+df = pd.DataFrame(rs.fetchall())
+# set column names..
+df.columns = rs.keys()
+# lose connection..
+con.close()
 
+# alternatively, use context manager to connect (no need to close connection..)
+with engine.connect() as con:
+    rs = con.execute('select * from Album')
+    df = pd.DataFrame(rs.fetchall())
+    df.columns = rs.keys()
 
 
 
