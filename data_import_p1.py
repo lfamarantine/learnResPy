@@ -141,13 +141,35 @@ print(np.shape(mat['cfpCyt']))
 # ----------------------------------------------
 # Todd's 12 Rules/Commandments (12 rules actually but 1st rule is 0-indexed)
 
+# connect to engine..
 engine = create_engine('sqlite:///data/Chinook.sqlite')
+
+# 1. option..
+# ---
 # get table names of db..
 table_names = engine.table_names()
-# importing data..
+# connect..
+con = engine.connect()
+# query..
+rs = con.execute("select * from Album")
+# save results & change column-names..
+df = pd.DataFrame(rs.fetchall())
+df.columns = rs.keys()
+# close connection..
+con.close()
 
+# 2. option..
+# open engine in context manager..
+with engine.connect() as con:
+    rs = con.execute("select * from Album")
+    df = pd.DataFrame(rs.fetchall()) # df = pd.DataFrame(rs.many(size=3))
+    df.columns = rs.keys()
 
+# 3. option..
+df1 = pd.read_sql_query("SELECT * FROM Album", engine)
 
+# check whether the 2 tables are the same..
+print(df.equals(df1))
 
 
 
