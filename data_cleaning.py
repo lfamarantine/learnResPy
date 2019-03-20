@@ -94,14 +94,135 @@ print(df_melt.head())
 # 3. Combining data for analysis..
 # --------------------------------
 
+# concatenating..
+# ---
 df = pd.read_csv('data/nyc_uber_2014.csv')
 uber1 = df[0:98]
 uber2 = df[99:197]
 uber3 = df[198:]
 # combine dataframes..
+# bind rows..
 uber_c = pd.concat([uber1, uber2, uber3])
+# bind cols..
+uber1 = df.iloc[:,[1]]
+uber2 = df.iloc[:,[2]]
+uber_c = pd.concat([uber1, uber2], axis=1)
+
+# globbing in python..
+# ---
+# wildcards: *? -> eg. any csv file: *.csv | any single character: file_?.csv
+import glob
+
+# import all csv files into a list..
+csv_files = glob.glob('data/*.csv')
+print(csv_files)
+
+# load & append all csv files in a list..
+list_data = []
+for filename in csv_files:
+    data = pd.read_csv(filename)
+    list_data.append(data)
+
+# merging data
+# ---
+# 3 different types of mergers; One-to-one | Many-to-one / one-to-many | Many-to-many
+# one-to-one merge..
+tmp = {'state': ['California', 'Texas', 'Florida', 'New York'] , 'population_2016': [392, 278, 206, 197]}
+tmp2 = {'name': ['California', 'Texas', 'Florida', 'New York'], 'ANSI': ['CA', 'FL', 'NY', 'TX']}
+A = pd.DataFrame(tmp)
+B = pd.DataFrame(tmp2)
+pd.merge(left=A, right=B, on=None, left_on='state', right_on='name')
 
 
+# 4. Cleaning data for analysis..
+# -------------------------------
+
+# converting data types..
+# ---
+df = pd.read_csv('data/tips.csv')
+df.info()
+df.head()
+df['time'] = df['time'].astype('category')
+df.info()
+# converting categorical data to 'category' dtype:
+# - can make the dataframe smaller in memory
+# - can make them be utilized by other python libraries for analysis
+
+# numerical data loaded as a string..
+# ---
+df = pd.read_csv('data/tips_bad.csv')
+df.info()
+df['tip'] = pd.to_numeric(df['tip'], errors='coerce')
+# or..
+df.time = df.time.astype(str)
+df.info()
+
+# regular expressions..
+# ---
+import re
+# example matches..
+# 17        \d*
+# $17       \$\d*
+# $17.00    \$\d*\.\d*
+# $17.89    \$\d*\.\d{2}
+# $17.895   ^\$\d*\.\d{2}$
+pattern = re.compile('\$\d*\.\d{2}')
+result = pattern.match('$17.89')
+bool(result)
+
+# 2nd example: compile a pattern that matches a phone number of format xxx-xxx-xxxx
+# .. using \d{x} to match x digits
+prog = re.compile('\d{3}-\d{3}-\d{4}')
+# see if the pattern matches..
+result = prog.match('123-456-7890')
+print(bool(result))
+# zee if the pattern matches..
+result2 = prog.match('1123-456-7890')
+print(bool(result2))
+
+# extracting numerical values from strings..
+# .. \d to find digits & + so that the previous element is matched one or more times..
+matches = re.findall('\d+', 'the recipe calls for 10 strawberries and 1 banana')
+print(matches)
+
+# find pattern with capital letter as the 1st letter followed by arbitrary number of characters..
+pattern3 = bool(re.match(pattern='[A-Z]\w*', string='Australia'))
+print(pattern3)
+
+# use functions to clean data..
+# ---
+tmp = {'treatment a': [18, 12, 24], 'treatment b': [42, 31, 27]}
+df = pd.DataFrame(tmp)
+# apply function..
+# column-wise..
+df.apply(np.mean, axis=0)
+# row-wise..
+df.apply(np.mean, axis=1)
+
+# custom functions to clean data..
+df = pd.read_csv('data/tips.csv')
+df.head()
+
+# a custom function to create binary variable from a string variable..
+
+
+def recode_gender(gender):
+    # return 0 if gender is 'Female'
+    if gender == 'Male':
+        return 1
+    # return 1 if gender is 'Male'
+    elif gender == 'Female':
+        return 0
+    # return np.nan
+    else:
+        return np.nan
+
+
+# add recode variable derived from existing columns..
+df['recode'] = df.sex.apply(recode_gender)
+
+# using lambda functions to clean data..
+# ---
 
 
 
