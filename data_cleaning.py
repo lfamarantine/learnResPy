@@ -223,6 +223,63 @@ df['recode'] = df.sex.apply(recode_gender)
 
 # using lambda functions to clean data..
 # ---
+df['total_dollar'] = '$5'
+# using replace..
+df['total_dollar_replace'] = df.total_dollar.apply(lambda x: x.replace('$', ''))
+# regular expressions..
+df['total_dollar_re'] = df.total_dollar.apply(lambda x: re.findall('\d+\.\d+', x)[0])
+
+
+# duplicate & missing data..
+# ---
+df.shape
+df = df.drop_duplicates()
+df.shape
+
+# count missing values..
+df.info()
+# drop missing values..
+df = df.dropna() # ..rows with missing values are dropped
+# fill missing values..
+df['sex'] = df['sex'].fillna('missing')
+# or multiple columns at once..
+df[['total_bill','size']] = df[['total_bill','size']].fillna(0)
+# fill with mean..
+mean_value = df['size'].mean()
+df['sex'] = df['size'].fillna(mean_value)
+
+
+# testing with asserts..
+# ---
+# - programmatically vs visually checking
+# - writing assert statements to verify that there're no NA's
+df = pd.read_csv('data/ebola.csv')
+
+# example asserts..
+assert 1 == 1 # no error
+assert 1 == 0 # error
+
+# assert on dataset..
+# ..entire dataset
+assert df.notnull().all().all()
+# ..single column
+assert df['Deaths_Spain'].notnull().all()
+df['Deaths_Spain'] = df['Deaths_Spain'].fillna(0)
+assert df['Deaths_Spain'].notnull().all()
+
+# assert that all values are >= 0..
+assert (df >= 0).all().all()
+
+
+# 5. Case Study..
+# ---------------
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('data/gapminder2.csv')
+plt.plot(kind='scatter', x=df['1800'], y=['1899'])
+
+
+
 
 
 
