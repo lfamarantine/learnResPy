@@ -274,13 +274,19 @@ assert (df >= 0).all().all()
 # 5. Case Study..
 # ---------------
 import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.read_csv('data/gapminder2.csv')
-plt.plot(kind='scatter', x=df['1800'], y=['1899'])
+plt.plot(kind='scatter', x=df['1800'], y=['1899']) # kind: scatter/hist
 
+# reshaping data..
+dfm = pd.melt(df, id_vars='Life expectancy')
+# rename the columns..
+dfm.columns = ['country','year','life_expectancy']
+print(dfm.head())
 
-
-
+# checking data-types..
+assert dfm.year.dtypes == np.int64
 
 
 
