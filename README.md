@@ -11,8 +11,8 @@ Datacamp exercises based on Data Scientist with Python course
 4 | python data science toolbox (part II)	| Feb-19	| done
 5 | importing data in python (part I)	| Mar-19	| done
 6 | importing data in python (part II)	| Mar-19	| done
-7 | cleaning data in python	| Mar-19	| in progress
-8 | pandas foundations	| Mar-19	
+7 | cleaning data in python	| Mar-19	| done
+8 | pandas foundations	| Mar-19	| in progress
 9 | manipulating dataframes with pandas	| Apr-19	
 10 | merging dataframes with pandas	| Apr-19	
 11 | intro to sql for data science	| Apr-19	
