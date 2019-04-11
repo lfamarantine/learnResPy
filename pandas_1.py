@@ -58,6 +58,10 @@ df2.to_excel('data/file_clean.xlsx', index=False, sheet_name='s0')
 
 # plotting with pandas..
 # ---
+import matplotlib.pyplot as plt
+df2.plot(color='red', title='Temperature in Austin')
+plt.xlabel('Hours since midnight August 1, 2010')
+plt.ylabel('Temperature (degrees F)')
 
 
 # 2. Exploratory Data Analysis
