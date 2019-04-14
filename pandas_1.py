@@ -58,10 +58,107 @@ df2.to_excel('data/file_clean.xlsx', index=False, sheet_name='s0')
 
 # plotting with pandas..
 # ---
+help(pd.read_csv)
+df = pd.read_csv('data/temperatures.csv')
+df.info()
+df.iloc[:,0:3] = df.iloc[:,0:3].apply(pd.to_numeric, errors='coerce')
+df.plot(subplots=True)
 
 
 # 2. Exploratory Data Analysis
 # ----------------------------
+import matplotlib as plt
+from sklearn import datasets
+iris = datasets.load_iris()
+
+
+# data preparation..
+df = pd.read_csv('data/file_clean.csv')
+df2 = df.T
+df2.head()
+df2.columns = df2.iloc[0]
+df2 = df2[1:]
+df2['Month'] = df2.index
+df2 = df2.reset_index(drop=True)
+df2.reindex(columns=list(df2.columns.values))
+df2.info()
+df2.iloc[:,0:4] = df2.iloc[:,0:4].apply(pd.to_numeric, errors='coerce')
+
+# line plot..
+df2.plot(x='Month')
+# scatter plot..
+df2.plot.scatter(x='IBM', y='APPLE')
+# box plot..
+df2['IBM'].plot(kind='box')
+
+# calculating summary stats..
+print(df2['IBM'].max())
+print(df2['IBM'].describe())
+
+# construct the mean percentage per firm..
+x0 = df2.mean(axis='rows')
+
+# quantiles..
+print(df2['IBM'].quantile([0.05, 0.95]))
+
+# counts and filtering..
+df2[df2['IBM']>=120].count()
+
+
+# 3. Time series in Pandas
+# ------------------------
+
+df = pd.read_csv('data/ebola.csv', parse_dates=True, index_col='Date')
+df.head()
+
+# filtering..
+df.loc['2015-01-05']
+df.loc['2015-01-02':'2015-01-05']
+
+# pandas datetime object..
+dft = pd.to_datetime(df.index)
+
+# create random dates..
+def random_dates(start, end, n, unit='D', seed=None):
+    if not seed:  # from piR's answer
+        np.random.seed(0)
+
+    ndays = (end - start).days + 1
+    return start + pd.to_timedelta(
+        np.random.randint(0, ndays, n), unit=unit
+    )
+
+
+x0 = {'date':random_dates(pd.to_datetime('2016-07-01'), pd.to_datetime('2016-07-12'), 8), 'ts1': list(range(1,9))}
+ts1 = pd.DataFrame(x0)
+ts1.index = ts1['date']
+ts1 = ts1['ts1']
+x1 = {'date':random_dates(pd.to_datetime('2016-07-01'), pd.to_datetime('2016-07-15'), 11), 'ts2': list(range(1,12))}
+ts2 = pd.DataFrame(x1)
+ts2.index = ts2['date']
+ts2 = ts2['ts2']
+
+# unsampling & interpolating..
+ts1.resample('M').first()
+ts1.resample('M').first().interpolate('linear')
+
+
+# resampling data..
+df = pd.read_csv('data/weather_data_austin_2010.csv', parse_dates=['Date'])
+df.head()
+
+# datetime methods..
+df['Date'].dt.hour
+# set timezone..
+# df['Date'].dt.tz_localize('UK/Central')
+
+
+population = pd.read_csv('data/world_population.csv', parse_dates=True, index_col='Year')
+
+
+# 4. Case Study
+# -------------
+
 
 
 
