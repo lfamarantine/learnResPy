@@ -3,7 +3,11 @@
     <words>
       <w>boxplots</w>
       <w>dataframe</w>
+      <w>downsample</w>
       <w>globbing</w>
+      <w>resample</w>
+      <w>resampling</w>
+      <w>unsmoothed</w>
     </words>
   </dictionary>
 </component>

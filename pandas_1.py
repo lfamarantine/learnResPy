@@ -1,12 +1,10 @@
 # Pandas Foundations
 # ------------------
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 # 1. Data ingestion & inspection..
 # --------------------------------
-import pandas as pd
 
 # building data from scratch..
 list_keys = ['Country', 'Total']
@@ -108,15 +106,60 @@ df2[df2['IBM']>=120].count()
 # 3. Time series in Pandas
 # ------------------------
 
+# filtering with dates..
+# ---
 df = pd.read_csv('data/ebola.csv', parse_dates=True, index_col='Date')
 df.head()
 
-# filtering..
+# .. specific date or range..
 df.loc['2015-01-05']
 df.loc['2015-01-02':'2015-01-05']
+df.loc['2014-04-07':'2014-03-29']
 
 # pandas datetime object..
-dft = pd.to_datetime(df.index)
+dft = pd.to_datetime(df.index, format='%Y-%m-%d %H:%M')
+
+# reindexing files..
+# ---
+ts1 = pd.read_csv('data/ts1.csv', header=None, index_col=0)
+ts2 = pd.read_csv('data/ts2.csv', header=None, index_col=0)
+# ..reindexing with nan's where no data..
+ts3 = ts2.reindex(ts1.index)
+# ..reindexing with previous where no data..
+ts4 = ts2.reindex(ts1.index, method="ffill")
+# ..reindexing with complete set..
+sum12 = ts1 + ts2
+
+# resampling..
+# ---
+df = pd.read_csv('data/weather_data_austin_2010.csv', parse_dates=True, index_col='Date')
+# .. downsample to 6h intervals and aggregate by mean..
+df1 = df['Temperature'].resample('6h').mean()
+# .. downsample to daily intervals and aggregate by count..
+df2 = df['Temperature'].resample('D').count()
+
+# filtering..
+august = df.loc['2010-08-01':'2010-08-31'].Temperature
+
+# rolling calculations..
+# ---
+unsmoothed = df['Temperature']['2010-08-01':'2010-08-15']
+smoothed = unsmoothed.rolling(window=24).mean()
+august = pd.DataFrame({'smoothed':smoothed, 'unsmoothed':unsmoothed})
+august.plot()
+
+# resampling and rolling calculations..
+august = df['Temperature']['2010-08-01':'2010-08-31']
+# .. resample to daily data, aggregating by max..
+daily_highs = august.resample('D').max()
+# .. rolling 7-day window with method chaining to smooth the daily high temperatures..
+daily_highs_smoothed = daily_highs.rolling(window=7).mean()
+
+# chaining and filtering..
+# ---
+df = pd.read_csv('data/austin_airport_departure_data_2015_july.csv', parse_dates=True, header=16)
+dallas = df['DAL'].str.contains('DAL')
+
 
 # create random dates..
 def random_dates(start, end, n, unit='D', seed=None):
@@ -158,6 +201,16 @@ population = pd.read_csv('data/world_population.csv', parse_dates=True, index_co
 
 # 4. Case Study
 # -------------
+
+
+
+
+
+
+
+
+
+
 
 
 
