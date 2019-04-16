@@ -2,6 +2,7 @@
 # -----------------------------------
 
 import pandas as pd
+import numpy as np
 
 # covered:
 # - extracting, filtering & transforming DF in pandas
@@ -52,15 +53,89 @@ df.dropna(how='any') # remove rows with any na's
 # modifying a column based on another..
 df.eggs[df.salt > 55] += 5
 
+# transforming data..
+df.head()
+# .. DF-vectorized methods..
+df.floordiv(12) # divide by 12 and round to floor
+# .. numpy-vectorized methods..
+np.floor_divide(df, 12) # divide by 12 and round to floor
+
+# plain python function..
+def dozens(n):
+    return n//12
+
+df.apply(dozens) # convert to dozens unit
+
+# lambda functions..
+df.apply(lambda n: n//12)
+
+# storing a transformation..
+df['dozen_of_eggs'] = df.eggs.floordiv(12)
+
+# working with string values..
+df.index = df.index.str.upper()
+df.head()
+df.index = df.index.map(str.lower)
+df.head()
+
+# defining columns using other columns..
+df['salty_eggs'] = df.salt + df.dozen_of_eggs
+
+# advanced transformations..
+# ---
+election = pd.read_csv('data/pd2_pennsylvania2012_turnout.csv')
+election.head()
+# mapping with another vector..
+red_vs_blue = {'Obama':'blue', 'Romney':'red'}
+election['color'] = election.winner.map(red_vs_blue)
+election.head()
+
+# vectorized functions..
+from scipy.stats import zscore
+election['turnout_zscore'] = zscore(election['turnout'])
+election.head()
 
 
+# 2. Advanced indexing
+# --------------------
 
+# indexes:
+# - immutable
+# - homogenous in data type
 
+prices = [10.7, 10.86, 10.74, 10.71, 10.79]
+shares = pd.Series(prices)
+print(shares)
 
+days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri']
+shares = pd.Series(prices, index=days)
+print(shares)
 
+# slice from index..
+print(shares.index[2])
+print(shares.index[:2])
 
+# modifying index name..
+shares.index.name = 'weekday'
+print(shares)
 
+# modifying index entries..
+shares.index[1] = 'Wednesday' # throws an error bcz not mutable
+# ..only possible by modifying all indexes at once..
+shares.index = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+print(shares)
 
+# assigning the index..
+df = pd.read_csv('data/tb.csv')
+df.head()
+df.index = df['country']
+df.head()
+del df['country']
+df.head()
+
+# get index right from the start..
+df = pd.read_csv('data/tb.csv', index_col='country')
+df.head()
 
 
 
