@@ -137,6 +137,28 @@ df.head()
 df = pd.read_csv('data/tb.csv', index_col='country')
 df.head()
 
+# hierarchical indexing..
+# ---
+df = pd.read_csv('data/tb.csv')
+df.head()
+# .. 2 indexes..
+df = df.set_index(['country','year'])
+df.head()
+# show indexes..
+print(df.index.names)
+# sorting indexes..
+df = df.sort_index()
+df.head()
+# filtering with indexes..
+df.loc['AF']
+
+# example..
+df = pd.read_csv('data/pd2_sales.csv', index_col='month')
+df.head()
+
+
+
+
 
 
 
