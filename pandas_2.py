@@ -152,9 +152,50 @@ df.head()
 # filtering with indexes..
 df.loc['AF']
 
-# example..
-df = pd.read_csv('data/pd2_sales.csv', index_col='month')
-df.head()
+# full illustration of indexing..
+sales = pd.read_csv('data/pd2_sales.csv', index_col='month')
+sales.head()
+# modified index..
+new_idx = [k.upper() for k in sales.index]
+sales.index = new_idx
+sales.head()
+# change index name & columns name..
+sales.index.name = 'MONTHS'
+sales.columns.name = 'PRODUCTS'
+sales.head()
+
+# create index from scratch
+# ..removing index..
+sales = sales.reset_index()
+ind0 = sales.iloc[:,0]
+del sales['MONTHS']
+sales.index = ind0
+sales.head()
+
+# hierarchical indexing..
+sales = pd.read_csv('data/pd2_sales.csv')
+del sales['month']
+sales['state'] = ['CA','CA','NY','NY','TX','TX']
+sales['month'] = [1, 2, 1, 2, 1, 2]
+sales.head()
+sales = sales.set_index(['state', 'month'])
+sales.head()
+
+# extracting data with multi-index..
+print(sales.loc[['CA', 'TX']])
+print(sales['CA':'TX'])
+print(sales.loc[('NY', 1)])
+print(sales.loc[(['CA','TX'],2),:])
+print(sales.loc[(slice(None), 2), :])
+
+
+# 3. Rearranging and reshaping data
+# ---------------------------------
+
+
+
+
+
 
 
 
