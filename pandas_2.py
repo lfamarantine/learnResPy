@@ -152,39 +152,46 @@ df.head()
 # filtering with indexes..
 df.loc['AF']
 
+# full illustration of indexing..
+sales = pd.read_csv('data/pd2_sales.csv', index_col='month')
+sales.head()
+# modified index..
+new_idx = [k.upper() for k in sales.index]
+sales.index = new_idx
+sales.head()
+# change index name & columns name..
+sales.index.name = 'MONTHS'
+sales.columns.name = 'PRODUCTS'
+sales.head()
 
-# 3. Rearranging & reshaping data
-# -------------------------------
+# create index from scratch
+# ..removing index..
+sales = sales.reset_index()
+ind0 = sales.iloc[:,0]
+del sales['MONTHS']
+sales.index = ind0
+sales.head()
 
-# melting..
-df = pd.read_csv('data/pd2_users.csv', index_col=['weekday','city'])
-df2 = pd.read_csv('data/pd2_users.csv')
-df.head()
-print(df.index.names)
-# reset the index:..
-visitors_by_city_weekday = df.reset_index('weekday')
-# melt..
-visitors = pd.melt(visitors_by_city_weekday, id_vars=['weekday'], value_name='visitors')
-visitors.head()
-# melt 2 variables..
-skinny = pd.melt(df2, id_vars=['weekday','city'], value_name='value')
-# key-value pairs..
-kv_pairs = pd.melt(df, col_level=0)
-print(kv_pairs)
+# hierarchical indexing..
+sales = pd.read_csv('data/pd2_sales.csv')
+del sales['month']
+sales['state'] = ['CA','CA','NY','NY','TX','TX']
+sales['month'] = [1, 2, 1, 2, 1, 2]
+sales.head()
+sales = sales.set_index(['state', 'month'])
+sales.head()
 
-# pivot tables..
-by_city_day = pd.pivot_table(df, index='weekday', columns='city')
-print(by_city_day)
-# pivot table & count in each column..
-count_by_weekday1 = df.pivot_table(index='weekday', aggfunc='count')
-print(count_by_weekday1)
-# pivot table & summarise by group & add total..
-dft = df.pivot_table(index='weekday', aggfunc='sum', margins=True)
-print(dft)
+# extracting data with multi-index..
+print(sales.loc[['CA', 'TX']])
+print(sales['CA':'TX'])
+print(sales.loc[('NY', 1)])
+print(sales.loc[(['CA','TX'],2),:])
+print(sales.loc[(slice(None), 2), :])
 
 
-# 4. Grouping data
-# ----------------
+# 3. Rearranging and reshaping data
+# ---------------------------------
+
 
 
 
