@@ -192,10 +192,133 @@ print(sales.loc[(slice(None), 2), :])
 # 3. Rearranging and reshaping data
 # ---------------------------------
 
+# pivoting
+# ---
+users = pd.read_csv('data/pd2_users.csv')
+users.head()
+
+# pivoting a single variable..
+users_piv = users.pivot(index='weekday', columns='city', values='visitors')
+users_piv.head()
+# pivot all variables..
+users_piv = users.pivot(index='weekday', columns='city')
+users_piv.head()
+
+# stacking & unstacking DF..
+# ---
+users = pd.read_csv('data/pd2_users.csv', index_col=['city', 'weekday'])
+users = users.iloc[:,1:3]
+users.head()
+# unstack..
+byweekday = users.unstack(level='weekday')
+print(byweekday)
+bycity = users.unstack(level='city')
+print(bycity)
+# stack..
+print(byweekday.stack(level='weekday'))
+print(bycity.stack(level='city'))
+
+# restoring index order..
+newusers = bycity.stack(level='city')
+# ..swap index levels..
+newusers = newusers.swaplevel(0, 1)
+print(newusers)
+# ..sort index..
+newusers = newusers.sort_index()
+print(newusers)
+# verify..
+print(newusers.equals(users))
+
+# melting DF..
+# ---
+
+# melt & add names for readability..
+users = pd.read_csv('data/pd2_users.csv', index_col=['city','weekday'])
+users = users.reset_index('weekday')
+print(users.index.names)
+print(users)
+visitors = pd.melt(users, id_vars=['weekday'], value_name='visitors')
+print(visitors)
+# melt multiple columns..
+skinny = pd.melt(users, id_vars=['weekday','city'], value_name='value')
+# get key-value paris..
+kv_pairs = pd.melt(users, col_level=0)
+print(kv_pairs)
+
+# pivoting tables
+# .. pivot table allows you to see all of your variables as a function of 2 other variables
+by_city_day = pd.pivot_table(users, index='weekday', columns='city')
+count_by_weekday1 = users.pivot_table(index='weekday', aggfunc='count')
+signups_and_visitors_total = users.pivot_table(index='weekday', aggfunc='sum', margins=True)
 
 
+# 4. Grouping data
+# ----------------
+sales = pd.DataFrame({'weekday': ['Sun','Sun','Mon','Mon'],
+                      'city': ['Austin','Dallas','Austin','Dallas'],
+                      'bread': [139,237,326,456],
+                      'butter': [20,45,70,98]})
+
+# grouping & aggregation..
+# ---
+# boolean filter & count..
+sales.loc[sales['weekday'] == 'Sun'].count()
+# groupby & count..
+sales.groupby('weekday').count()
+# groupby & sum..
+sales.groupby('weekday')['bread'].sum()
+sales.groupby('weekday')[['bread','butter']].sum()
+# adding new series to groupby..
+customers = pd.Series(['Dave','Alice','Bob','Alice'])
+sales.groupby(customers)['bread'].sum()
+# categorical data..
+# advantages: uses less memory, speeds up operations like groupby()
+sales['weekday'].unique()
+sales['weekday'] = sales['weekday'].astype('category')
+sales['weekday']
+
+# aggregations..
+sales.groupby('city')[['bread','butter']].max()
+# multiple aggregations..
+sales.groupby('city')[['bread','butter']].agg(['max','sum'])
+# custom aggregation..
+def data_range(series):
+    return  series.max() - series.min()
+sales.groupby('city')[['bread','butter']].agg(data_range)
+
+# custom aggregation with dictionaries..
+sales.groupby('city')[['bread','butter']].agg({'bread':'sum', 'butter':data_range})
 
 
+# grouping & transformation..
+# ---
+auto = pd.read_csv('data/auto-mpg.csv')
+auto.head()
+
+
+def zscore(series):
+    return (series - series.mean()) / series.std()
+
+
+# transform..
+zscore(auto['mpg']).head()
+# groupby year & transform..
+auto.groupby('yr')['mpg'].transform(zscore).head()
+
+# using apply for more complicated aggregations..
+def zscore_with_year_and_name(group):
+    df = pd.DataFrame(
+        {'mpg': zscore(group['mpg']),
+         'year': group['yr'],
+         'name': group['name']
+        }
+    )
+    return df
+
+
+auto.groupby('yr').apply(zscore_with_year_and_name).head()
+
+from scipy.stats import zscore
 
 
 
