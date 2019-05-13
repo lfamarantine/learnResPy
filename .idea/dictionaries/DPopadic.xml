@@ -2,14 +2,18 @@
   <dictionary name="DPopadic">
     <words>
       <w>boxplots</w>
+      <w>byweekday</w>
       <w>dataframe</w>
       <w>dataframes</w>
       <w>downsample</w>
       <w>globbing</w>
+      <w>groupby</w>
       <w>homogenous</w>
+      <w>newusers</w>
       <w>resample</w>
       <w>resampling</w>
       <w>unsmoothed</w>
+      <w>zscore</w>
     </words>
   </dictionary>
 </component>
