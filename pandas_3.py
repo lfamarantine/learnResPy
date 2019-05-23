@@ -1,6 +1,7 @@
 # Merging Dataframes with Pandas
 # ------------------------------
 import pandas as pd
+import numpy as np
 
 # 1. Preparing data
 # -----------------
@@ -86,12 +87,70 @@ week1_mean_chng = week1_mean.pct_change() * 100
 # pd.concat(): pandas module function & can append row- & column-wise -> accepts a series eg. pd.concat([s1,s2,s3])
 # concat is equivalent to using a series of .append()-calls
 
+medals = pd.read_csv('data/pd3_medals.csv', index_col=0)
+
+medal_types = ['bronze', 'silver', 'gold']
+medals = []
+# medal = 'bronze'
+for medal in medal_types:
+    file_name = "data/pd3_%s_top5.csv" % medal
+    medal_df = pd.read_csv(file_name, index_col='Country')
+    medals.append(medal_df)
+
+# concatenate medals..
+medals = pd.concat(medals, keys=['bronze', 'silver', 'gold'])
+
+# slicing multi-indexed DF's..
+medals_sorted = medals.sort_index(level=0)
+# slicing..
+print(medals_sorted.loc[('bronze','Germany')])
+print(medals_sorted.loc['silver'])
+# create alias for pd.IndexSlice
+idx = pd.IndexSlice
+# all the data on medals won by the United Kingdom..
+print(medals_sorted.loc[idx[:,'United Kingdom'], :])
 
 
+# outer & inner joins..
+# ---
+A = np.arange(8).reshape(2,4)+0.1
+print(A)
+B = np.arange(6).reshape(2,3)+0.2
+print(B)
+C = np.arange(12).reshape(3,4)+0.3
+print(C)
+
+# stack arrays horizontally..
+np.hstack([B, A])
+# ..or..
+np.concatenate([B, A], axis=1)
+# stack arrays vertically..
+np.vstack([A, C])
+# ..or..
+np.concatenate([A, C], axis=0)
+
+# joins..
+bronze = pd.read_csv('data/pd3_Bronze.csv', index_col=0)
+silver = pd.read_csv('data/pd3_Silver.csv', index_col=0)
+gold = pd.read_csv('data/pd3_Gold.csv', index_col=0)
+medal_list = [bronze, silver, gold]
+# concatenate medal_list horizontally using an inner join..
+medals = pd.concat(medal_list, axis=1, keys=['bronze', 'silver', 'gold'], join='inner')
+print(medals)
 
 
+# 3. Merging data
+# ---------------
+bronze = pd.read_csv('data/pd3_Bronze.csv', index_col=0)
+silver = pd.read_csv('data/pd3_Silver.csv', index_col=0)
+gold = pd.read_csv('data/pd3_Gold.csv', index_col=0)
 
-
+# inner join..
+pd.merge(bronze, gold)
+# using suffixes..
+pd.merge(bronze, gold, on=['NOC','Country'], suffixes=['_bronze', '_gold'])
+# merging when column names don't match..
+pd.merge(bronze, gold, left_on=['NOC','Country'], right_on=['NOC','Country'])
 
 
 
