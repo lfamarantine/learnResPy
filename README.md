@@ -14,12 +14,12 @@ Datacamp exercises based on Data Scientist with Python course
 7 | cleaning data in python	| Mar-19	| done
 8 | pandas foundations	| Mar-19	| done
 9 | manipulating dataframes with pandas	| Apr-19 | done	
-10 | merging dataframes with pandas	| Apr-19	| in progress
-11 | intro to sql for data science	| Apr-19	
+10 | merging dataframes with pandas	| Apr-19	| done
+11 | intro to sql for data science	| Apr-19
 12 | introduction to databases in python	| Apr-19	
 13 | introduction to data visualization with python	| May-19	
 14 | interactive data visualization with bokeh	| May-19	
-15 | statistical thinking in python (part I)	| May-19	
+15 | statistical thinking in python (part I)	| May-19 | in progress
 16 | statistical thinking in python (part II)	| May-19	
 17 | joining data in postgresql	| Jun-19	
 18 | supervised learning with scikit-learn	| Jun-19	

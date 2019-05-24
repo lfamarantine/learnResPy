@@ -147,10 +147,40 @@ gold = pd.read_csv('data/pd3_Gold.csv', index_col=0)
 
 # inner join..
 pd.merge(bronze, gold)
-# using suffixes..
+# on multiple keys using suffixes..
 pd.merge(bronze, gold, on=['NOC','Country'], suffixes=['_bronze', '_gold'])
 # merging when column names don't match..
 pd.merge(bronze, gold, left_on=['NOC','Country'], right_on=['NOC','Country'])
+# alternative joins: left, right, inner, outer..
+pd.merge(bronze, gold, how='right')
+
+# ordered mergers..
+software = pd.read_csv('data/pd3_feb-sales-Software.csv', parse_dates=['Date']).sort_values('Date')
+hardware = pd.read_csv('data/pd3_feb-sales-Hardware.csv', parse_dates=['Date']).sort_values('Date')
+# join yields an empty DF since it attempts to join on all columns..
+pd.merge(software, hardware)
+# use outer..
+pd.merge(software, hardware, how='outer').sort_values(['Date'])
+# .. alternatively use merge.ordered():
+pd.merge_ordered(hardware, software)
+pd.merge_ordered(hardware, software, on=['Date','Company'], suffixes=['_hardware','_software']).head()
+
+# also supports filling null values..
+auto = pd.read_csv('data/pd3_automobiles.csv')
+oil = pd.read_csv('data/pd3_oil_price.csv', parse_dates=['Date'])
+stocks = pd.read_csv('data/pd3_sp500.csv', parse_dates=['Date'])
+pd.merge_ordered(stocks, oil, on='Date', fill_method='ffill')
+
+# merge values in order using the on column, but for each row in the left DF, only rows from the right DF whose 'on'
+# column values are less than the left value will be kept..
+merged = pd.merge_asof(auto, oil, left_on='yr', right_on='Date')
+
+
+# 4. Case Study
+# -------------
+# see references..
+
+
 
 
 
