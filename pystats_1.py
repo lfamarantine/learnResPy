@@ -75,16 +75,41 @@ cov
 # 3. Probabilistic logic & statistical inference
 # ----------------------------------------------
 # statistical inference: to draw probabilistic conclusions about what we might
-# expect if we collected the same data again, to ddraw actionable conclusions
+# expect if we collected the same data again, to draw actionable conclusions
 # from data and to draw more general conclusions from relatively few data observations..
 
 # random number generators & hacker statistics..
 
+# simulate probability of 4 successive heads in coin-flips..
+np.random.seed(42)
+rn = np.random.random(size=4)
+heads = rn < 0.5
+np.sum(heads)
 
+# generalize..
+n_all_heads = 0 # initialise
+for _ in range(10000):
+    heads = np.random.random(size=4) < 0.5
+    n_heads = np.sum(heads)
+    if n_heads == 4:
+        n_all_heads += 1
 
+n_all_heads / 10000
 
+# alternatively: sampling probability distributions..
+samples = np.random.binomial(4, 0.5, 10000)
 
+# examples of poisson-processes: the next event is independent of the previous one..
+# - natural births at a given hospital
+# - hits on a website during a given hour
+# - meteor strikes
+# - aviation incidents
+# - buses in poissonville
 
+# properties:
+# - 1 parameter: The number or r arrivals of a Poisson process in a given time interval with average rate of
+# lambda arrivals per interval is Poisson distributed.
+# - limit of poisson distribution for low probability of success and large number of trials (eg. for rare events)
 
 
 
