@@ -205,8 +205,76 @@ def draw_bs_pairs_linreg(x, y, size=1):
 bs_slope_reps, bs_intercept_reps = draw_bs_pairs_linreg(illiteracy, fertility, 1000)
 plt.hist(bs_slope_reps, bins=50, normed=True)
 
+
 # 3. Introduction to hypothesis testing
 # -------------------------------------
+
+# generating a permutation sample..
+# ---
+def permutation_sample(data1, data2):
+    """Generate a permutation sample from two data sets."""
+    # concatenate the data sets: data
+    data = np.concatenate([data1, data2])
+    # permute the concatenated array: permuted_data
+    permuted_data = np.random.permutation(data)
+    # split the permuted array into two: perm_sample_1, perm_sample_2
+    perm_sample_1 = permuted_data[:len(data1)]
+    perm_sample_2 = permuted_data[len(data1):]
+    return perm_sample_1, perm_sample_2
+
+
+# hypothesis testing..
+# ---
+# alternative formulation: null hypothesis significance testing (NHST)
+# statistical significance =! practical significance
+# p-value: the probability of observing a test statistic as extreme ore more extreme than the one you observed, given
+# that the null hypothesis is true.
+
+# generating permutation replicates..
+def draw_perm_reps(data_1, data_2, func, size=1):
+    """Generate multiple permutation replicates."""
+    # initialize array of replicates..
+    perm_replicates = np.empty(size)
+    for i in range(size):
+        # generate permutation sample
+        perm_sample_1, perm_sample_2 = permutation_sample(data_1, data_2)
+        # compute the test statistic
+        perm_replicates[i] = func(perm_sample_1, perm_sample_2)
+
+    return perm_replicates
+
+
+# bootstrap hypothesis testing..
+# ---
+force_a = np.array([1.612, 0.605, 0.327, 0.946, 0.541, 1.539, 0.529, 0.628, 1.453,
+                    0.297, 0.703, 0.269, 0.751, 0.245, 1.182, 0.515, 0.435, 0.383,
+                    0.457, 0.73 ])
+force_b = np.array([0.172, 0.142, 0.037, 0.453, 0.355, 0.022, 0.502, 0.273, 0.72 ,
+                    0.582, 0.198, 0.198, 0.597, 0.516, 0.815, 0.402, 0.605, 0.711,
+                    0.614, 0.468])
+
+# Another juvenile frog was studied, Frog C, and you want to see if Frog B and Frog C have similar impact forces.
+# Unfortunately, you do not have Frog C's impact forces available, but you know they have a mean of 0.55 N. Because
+# you don't have the original data, you cannot do a permutation test, and you cannot assess the hypothesis that the
+# forces from Frog B and Frog C come from the same distribution. You will therefore test another, less restrictive
+# hypothesis: The mean strike force of Frog B is equal to that of Frog C.
+translated_force_b = force_b - np.mean(force_b) + 0.55
+# take bootstrap replicates of Frog B's translated impact forces..
+bs_replicates = draw_bs_reps(translated_force_b, np.mean, 10000)
+# compute fraction of replicates that are less than the observed Frog B force
+p = np.sum(bs_replicates <= np.mean(force_b)) / 10000
+# p-value
+print('p = ', p)
+
+
+# 3. Hypothesis testing examples
+# ------------------------------
+# process: 1. define H0, 2. figure out how to simulate it, 3. define what it means to be more extreme 4. p-value
+
+
+
+
+
 
 
 
