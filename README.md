@@ -18,9 +18,9 @@ Datacamp exercises based on Data Scientist with Python course
 11 | intro to sql for data science	| Apr-19
 12 | introduction to databases in python	| Apr-19	
 13 | introduction to data visualization with python	| May-19	
-14 | interactive data visualization with bokeh	| May-19	
+14 | interactive data visualization with bokeh	| May-19 | in progress
 15 | statistical thinking in python (part I)	| May-19 | done
-16 | statistical thinking in python (part II)	| May-19 | in progress
+16 | statistical thinking in python (part II)	| May-19 | done
 17 | joining data in postgresql	| Jun-19	
 18 | supervised learning with scikit-learn	| Jun-19	
 19 | machine learning with the experts: school budgets	| Jun-19	

@@ -11,7 +11,7 @@ df_swing = pd.read_csv('data/pystats1_2008_swing_states.csv')
 
 # generating a histogram & using seaborn styling..
 sns.set()
-_ = plt.hist(df_swing['dem_share'], bins=20)
+_ = plt.hist(df_swing['dem_share']['dem_share'], bins=20)
 _ = plt.xlabel('percent of vote for Obama')
 _ = plt.ylabel('number of counties')
 

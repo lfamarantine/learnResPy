@@ -267,16 +267,65 @@ p = np.sum(bs_replicates <= np.mean(force_b)) / 10000
 print('p = ', p)
 
 
-# 3. Hypothesis testing examples
+# 4. Hypothesis testing examples
 # ------------------------------
 # process: 1. define H0, 2. figure out how to simulate it, 3. define what it means to be more extreme 4. p-value
 
+# A/B testing
+# ---
+# Civil Rights Act of 1964: 153 House Democrats and 136 Republicans voted yea. However, 91 Democrats and 35
+# Republicans voted nay. Did party affiliation make a difference in the vote?
+# H0: party of a house member has no bearing on his/her vote
+
+dems = np.array([True] * 153 + [False] * 91)
+reps = np.array([True] * 136 + [False] * 35)
+
+def frac_yea_dems(dems, reps):
+    """Compute fraction of Democrat yea votes."""
+    frac = np.sum(dems) / len(dems)
+    return frac
+
+# acquire permutation samples
+perm_replicates = draw_perm_reps(dems, reps, frac_yea_dems, 10000)
+# compute and print p-value
+p = np.sum(perm_replicates <= 153/244) / len(perm_replicates)
+print('p-value =', p)
 
 
+# Correlation testing
+# ---
+# H0: 2 variables are completely uncorrelated
+# use correlation as test-statistic
+
+# example: observed correlation between female illiteracy and fertility may just be by chance; the fertility
+# of a given country may actually be totally independent of its illiteracy. permute the illiteracy values but
+# leave the fertility values fixed. This simulates the hypothesis that they are totally independent of each other.
+# For each permutation, compute the Pearson correlation coefficient and assess how many of your permutation replicates
+# have a Pearson correlation coefficient greater than the observed one.
+from scipy.stats import pearsonr
+def pearson_r(x, y):
+    """Pearson correlation coefficient"""
+    roh, pval = pearsonr(x, y)
+    return roh
+
+r_obs = pearson_r(illiteracy, fertility)
+# initialize permutation replicates..
+perm_replicates = np.empty(10000)
+# draw replicates
+for i in range(10000):
+    # permute illiteracy measurments..
+    illiteracy_permuted = np.random.permutation(illiteracy)
+    # compute pearson correlation..
+    perm_replicates[i] = pearson_r(illiteracy_permuted, fertility)
+
+# compute p-value..
+p = np.sum(perm_replicates>=r_obs)/len(perm_replicates)
+print('p-val =', p)
 
 
-
-
+# 5. Case Study
+# -------------
+# interesting case study on hypothesis testing via simulation..
 
 
 
