@@ -1,5 +1,5 @@
-# Datacamp
-Datacamp exercises based on Data Scientist with Python course
+# Python ABC
+Python exercises based on various sources
 
 # Agenda
 
