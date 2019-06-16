@@ -85,19 +85,44 @@ plt.xlabel('Number of Neighbors')
 plt.ylabel('Accuracy')
 plt.show()
 
+help(pd)
 
 
+# 2. Regression
+# -------------
+# cross-validation: more folds -> more computationally expensive
+# ..maximizes the amount of data that is used to train the model, as during the course of training, the model
+# is not only trained, but also tested on all of the available data.
+
+# timing cv-procedure: cross_val_score(reg, X, y, cv=..)
+
+# Why regularize? Linear regression minimizes a loss-function, it chooses a coefficient for each variable. Large
+# coefficients can lead to over-fitting. In practice, one can alter the loss-function so that it penalizes large
+# coefficients, which is called regularization!
+
+# Types of regularized regressions: Ridge & Lasso
+# 1. Ridge regression: models are penalized for coefficients with a large multitude (pos./neg.)
+# - alpha-parameter needs to be chosen (similar to choosing k in kNN) -> this is hyperparameter tuning!
+# - alpha controls model complexity (alpha=0: standard OLS) -> small alpha: can lead to overfitting,
+# large alpha: can lead to underfitting
+
+# 2. Lasso regression: can be used to select important features of a dataset because it shrinks the coefficients
+# of less important features to exactly 0 (lasso's power is to determine the important features)
 
 
+# 3. Fine-tuning your model
+# -------------------------
+# class-imbalance email example: imagine in spam classification 99% of emails are real, 1% spam. Assume the classifier
+# on this sample to determine spams is 99% accurate. However, it's not good at actually predicting spam and it fails
+# at its original purpose. Need for more nuanced metrics!!
 
-
-
-
-
-
-
-
-
+# confusion matrix metrics:
+# i.   accuracy: (tp + tn) / (tp + tn + fp + fn)
+# ii.  precision: tp / (tp + fp) (also called positive predictive value - PPV)
+# iii. recall: tp / (tp + fn) (also called sensitivity, hit-rate, true-positive rate)
+# iv.  F1 score: 2 * (precision * recall) / (precision + recall) -> harmonic mean of precision & recall
+# .. high precision: not many real emails predicted as spam
+# .. high recall: predicted most spam emails correctly
 
 
 

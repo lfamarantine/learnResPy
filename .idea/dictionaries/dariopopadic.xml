@@ -1,8 +1,12 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dariopopadic">
     <words>
+      <w>dataset</w>
+      <w>hyperparameter</w>
       <w>keras</w>
+      <w>overfitting</w>
       <w>scikit</w>
+      <w>underfitting</w>
     </words>
   </dictionary>
 </component>
