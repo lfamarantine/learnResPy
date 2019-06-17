@@ -158,7 +158,7 @@ cv_scores = cross_val_score(reg, X, y, cv=5)
 print(cv_scores)
 print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
 
-# regularization: lasso / ridge
+# regularization: lasso, ridge & elastic net
 # ---
 from sklearn.linear_model import Lasso
 lasso = Lasso(alpha=0.4, normalize=True)
@@ -205,6 +205,41 @@ y_pred = knn.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
+
+# logistic regression
+# ---
+# logistic regression outputs probabilities with p > / < 0.5 -> 1 / 0
+
+
+# visual model performance evaluation
+# ---
+# - roc-curve
+# - area under the curve (the larger the better the model)
+# - precision-recall curve
+
+
+# hyperparameter-tuning
+# ---
+# how to choose hyperparameter?
+# - try a bunch of different hyperparameter values
+# - fit all of them separately & see how it performs - choose best performing one
+# - essential to use cross-validation
+
+# grid.search & randomized-search..
+# grid-search can be computationally expensive, use randomized-search where a fixed number of hyperparameter settings
+# is sampled from specified probability distributions
+
+
+# hold-out set for final validation
+# ---
+# how well does the model perform on never seen data?
+# - using all data for cv isn't ideal
+# - split data into training and hold-out set at beginning & perform grid-search cv on training data
+# - choose best hyper-parameters & evaluate on hold-out set
+
+
+# 4. Preprocessing and pipelines
+# ------------------------------
 
 
 
