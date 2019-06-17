@@ -110,6 +110,67 @@ help(pd)
 # of less important features to exactly 0 (lasso's power is to determine the important features)
 
 
+# reshaping data before modelling..
+df = pd.read_csv('data/ml_gm_2008_region.csv')
+y = df['life'].values
+X = df['fertility'].values
+# ..reshape:
+y = y.reshape(-1,1)
+X = X.reshape(-1,1)
+
+# linear regression
+# ---
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+# the prediction space..
+prediction_space = np.linspace(min(X), max(X)).reshape(-1,1)
+# fit the model to the data..
+reg.fit(X, y)
+# compute predictions over the prediction space..
+y_pred = reg.predict(prediction_space)
+# R-squared..
+print(reg.score(X, y))
+
+# train/test splitting..
+# ---
+# Import necessary modules
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+
+# create training and test sets..
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state=42)
+reg_all = LinearRegression()
+reg_all.fit(X_train, y_train)
+y_pred = reg_all.predict(X_test)
+# R^2 and RMSE..
+print("R^2: {}".format(reg_all.score(X_test, y_test)))
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+print("Root Mean Squared Error: {}".format(rmse))
+
+# cross-validation..
+# ---
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score
+reg = LinearRegression()
+# compute 5-fold cross-validation scores..
+cv_scores = cross_val_score(reg, X, y, cv=5)
+print(cv_scores)
+print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
+
+# regularization: lasso / ridge
+# ---
+from sklearn.linear_model import Lasso
+lasso = Lasso(alpha=0.4, normalize=True)
+lasso.fit(X,y)
+print(lasso.coef_)
+
+from sklearn.linear_model import Ridge
+ridge = Ridge(alpha=0.4, normalize=True)
+ridge.fit(X,y)
+print(ridge.coef_)
+
+
 # 3. Fine-tuning your model
 # -------------------------
 # class-imbalance email example: imagine in spam classification 99% of emails are real, 1% spam. Assume the classifier
@@ -124,8 +185,25 @@ help(pd)
 # .. high precision: not many real emails predicted as spam
 # .. high recall: predicted most spam emails correctly
 
+# confusion matrix..
+# ---
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 
-
+df = pd.read_csv('data/ml_diabetes.csv')
+y = df['diabetes'].values.reshape(-1,1)
+X = df.drop('diabetes', axis=1).values
+# create training and test set..
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.4, random_state=42)
+# instantiate a k-NN classifier..
+knn = KNeighborsClassifier(n_neighbors=6)
+# fit the classifier to the training data..
+knn.fit(X_train, y_train)
+# predict the labels of the test data..
+y_pred = knn.predict(X_test)
+# generate the confusion matrix and classification report..
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
 
 
 
