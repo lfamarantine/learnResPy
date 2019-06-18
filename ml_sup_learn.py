@@ -238,8 +238,43 @@ print(classification_report(y_test, y_pred))
 # - choose best hyper-parameters & evaluate on hold-out set
 
 
-# 4. Preprocessing and pipelines
+# 4. Pre-processing and pipelines
 # ------------------------------
+# - scikit-learn won't accept categorical features by default -> decode to dummy variables
+# - dealing with categorical features: sckit-learn: OneHotEncoder() & pandas: get_dummies()
+
+# categorical variables..
+# ---
+
+
+# imputation..
+# ---
+# indirect..
+from sklearn.preprocessing import Imputer
+imp = Imputer(missing_values='NaN', strategy='mean',axis=0)
+imp.fit(X)
+X = imp.transform(X)
+# direct..
+from sklearn.pipeline import Pipeline
+
+# pipeline objects..
+# ---
+
+
+# scaling data..
+# ---
+# - many models use some form of distance to inform them
+# - features on larger scales can unduly influence the model -> k-NN uses distance explicitly when making predictions
+# - requirement for features to be on similar scale
+
+
+
+
+
+
+
+
+
 
 
 
