@@ -2,6 +2,7 @@
   <dictionary name="dariopopadic">
     <words>
       <w>dataset</w>
+      <w>decorrelating</w>
       <w>hyperparameter</w>
       <w>keras</w>
       <w>overfitting</w>
