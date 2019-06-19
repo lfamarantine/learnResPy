@@ -24,7 +24,7 @@ Python exercises based on various sources
 17 | joining data in postgresql	| Jun-19	
 18 | supervised learning with scikit-learn	| Jun-19	| in progress
 19 | machine learning with the experts: school budgets	| Jun-19	
-20 | unsupervised learning in python	| Jun-19	
+20 | unsupervised learning in python	| Jun-19	| in progress
 21 | deep learning in python	| Jul-19	
 22 | network analysis in python (part I)	| Jul-19	
 
