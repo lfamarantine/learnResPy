@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="DPopadic">
     <words>
+      <w>adaboost</w>
       <w>bokeh</w>
       <w>boostrap</w>
       <w>boxplots</w>
@@ -8,12 +9,15 @@
       <w>dataframe</w>
       <w>dataframes</w>
       <w>downsample</w>
+      <w>ensamble</w>
       <w>globbing</w>
       <w>groupby</w>
       <w>homogenous</w>
       <w>newusers</w>
+      <w>overfit</w>
       <w>resample</w>
       <w>resampling</w>
+      <w>rmse</w>
       <w>scaler</w>
       <w>stdev</w>
       <w>tradeoff</w>
