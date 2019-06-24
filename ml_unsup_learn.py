@@ -41,7 +41,12 @@ centroids = model.cluster_centers_
 centroids_x = centroids[:,0]
 centroids_y = centroids[:,1]
 plt.scatter(centroids_x,centroids_y,marker='D',s=50)
+# .. count the number of times each label coincides with estimated: pd.crosstab(df['varieties'],df['lables'])
 
+# transforming features for better clusters
+# ---
+# StandardScaler() transforms each feature to have mean 0 & variance 1
+# Normalizer() rescales each sample (eg. each company's stock price) independently of the other
 
 # 2. Visualization with hierarchical clustering and t-SNE
 # -------------------------------------------------------
