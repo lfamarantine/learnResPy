@@ -230,11 +230,28 @@ plt.title('Features Importances')
 # errors as labels.
 
 
+# Stochastic Gradient Boosting
+# ---
+# GB involves an exhaustive search procedure, each CART is trained to fit the best split points & features. This may
+# lead to CARTs that use the same split points & features. To mitigate, one can use SGB:
+# 1. each tree is trained on a random subset of rows of the training data
+# 2. the sampled instances (40-80% of training set) are sampled without replacement
+# 3. features are sampled without replacement when chosing split points
+# .. this results in further ensemble diversity & adds further variance to the ensemble of trees
+
+
 # 5 Model Tuning
 # --------------
+# The hyperparameters of a machine learning model are parameters that are not learned from data.
+# - search for optimal hyperparameters for learning algorithm that yields an optimal score
+# - optimal score default in sklearn is accuracy (classification) & r-squared (regression)
+# - cross-validation is generalization performance measurement
 
-
-
+# approaches to hyperparameter tuning:
+# 1. grid search
+# 2. random search
+# 3. bayesian optimization
+# 4. genetic algorithms
 
 
 
