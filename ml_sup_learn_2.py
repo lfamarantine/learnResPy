@@ -216,18 +216,43 @@ plt.title('Features Importances')
 # - weak learner: model doing slightly better than random guessing
 # .. in boosting, train an ensemble of predictors sequentially.. each predictor tries to correct its predecessor
 
+
 # AdaBoost
 # ---
 # adaboost (adaptive boosting): each predictor pays more attention to the instances wrongly predicted by its
 # predecessor which is achieved by changing the weights of training instances. Each predictor is assigned a
 # coefficient alpha which depends on the predictor's training error.
 # - learning rate eta (0 < eta <= 1):
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import roc_auc_score
+dt = DecisionTreeClassifier(max_depth=2, random_state=1)
+# instantiate ada..
+ada = AdaBoostClassifier(base_estimator=dt, n_estimators=180, random_state=1)
+ada.fit(X_train, y_train)
+y_pred_proba = ada.predict_proba(X_test)[:,1]
+ada_roc_auc = roc_auc_score(y_test,y_pred_proba)
+print('ROC AUC score: {:.2f}'.format(ada_roc_auc))
+
 
 # Gradient Boosting
 # ---
 # Each predictor pays more attention to the instances wrongly predicted by its predecessor. In contrast to adaboost,
 # weights of training instances are NOT changed. Instead, each predictor is trained using its predecessor's residual
 # errors as labels.
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import mean_squared_error as MSE
+df = pd.read_csv('data/ml_dt_bikes.csv')
+X = df.drop('cnt',axis=1).values
+y = df.loc[:,'cnt']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# instantiate gb..
+gb = GradientBoostingRegressor(max_depth=4, n_estimators=200, random_state=2)
+gb.fit(X_train, y_train)
+y_pred = gb.predict(X_test)
+# evaluate..
+rmse_test = MSE(y_test,y_pred)**(1/2)
+print('Test set RMSE of gb: {:.3f}'.format(rmse_test))
 
 
 # Stochastic Gradient Boosting
@@ -238,6 +263,14 @@ plt.title('Features Importances')
 # 2. the sampled instances (40-80% of training set) are sampled without replacement
 # 3. features are sampled without replacement when chosing split points
 # .. this results in further ensemble diversity & adds further variance to the ensemble of trees
+from sklearn.ensemble import GradientBoostingRegressor
+# instantiate sgbr..
+sgbr = GradientBoostingRegressor(max_depth=4, subsample=0.9, max_features=0.75, n_estimators=200, random_state=2)
+sgbr.fit(X_train,y_train)
+y_pred = sgbr.predict(X_test)
+# evaluate..
+rmse_test = MSE(y_test,y_pred)**(1/2)
+print('Test set RMSE of sgbr: {:.3f}'.format(rmse_test))
 
 
 # 5 Model Tuning
@@ -253,10 +286,51 @@ plt.title('Features Importances')
 # 3. bayesian optimization
 # 4. genetic algorithms
 
+# hyperparameter tuning is computationally expensive & sometimes leads to very slight improvement -> weight the
+# impact of tuning on the project
+# view rf-hyperparameters: rf.get_params()
 
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import roc_auc_score
+df = pd.read_csv('data/ml_dt_indian_liver_patient_preprocessed.csv')
+y = df.loc[:,'Liver_disease']
+X = df.drop('Liver_disease', axis=1).values
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+# CART tuning..
+# ---
+# set tree's parameter grid..
+params_dt = {'max_depth':[2,3,4],'min_samples_leaf':[0.12,0.14,0.16,0.18]}
+# search for optimal tree..
+dt = DecisionTreeClassifier(random_state=1)
+grid_dt = GridSearchCV(estimator=dt, param_grid=params_dt, scoring='roc_auc', cv=5, n_jobs=-1)
+# evaluate optimal tree..
+grid_dt.fit(X_train, y_train)
+# extract best estimator & predict / evaluate..
+best_model = grid_dt.best_estimator_
+y_pred_proba = grid_dt.predict_proba(X_test)[:,1]
+test_roc_auc = roc_auc_score(y_test,y_pred_proba)
+print('Test set ROC AUC score: {:.3f}'.format(test_roc_auc))
 
+# RF tuning..
+# ---
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error as MSE
+df = pd.read_csv('data/ml_dt_bikes.csv')
+X = df.drop('cnt',axis=1).values
+y = df.loc[:,'cnt']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-
+params_rf = {'n_estimators':[100,350,500],'max_features':['log2','auto','sqrt'], 'min_samples_leaf':[2,10,30]}
+# search for optimal tree..
+rf = RandomForestRegressor(n_estimators=10, n_jobs=-1, random_state=2)
+grid_rf = GridSearchCV(estimator=rf, param_grid=params_rf, scoring='neg_mean_squared_error', cv=3, verbose=1, n_jobs=-1)
+# train the tree..
+grid_rf.fit(X_train, y_train)
+# extract the best estimator, predict & evaluate..
+best_model = grid_rf.best_estimator_
+y_pred = best_model.predict(X_test)
+rmse_test = MSE(y_test,y_pred)**(1/2)
+print('Test RMSE of best model: {:.3f}'.format(rmse_test))
 
 

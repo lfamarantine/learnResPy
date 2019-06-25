@@ -25,8 +25,8 @@ Python exercises based on various sources
 18 | supervised learning with scikit-learn	| Jun-19	| done
 19 | machine learning with the experts: school budgets	| Jun-19	
 20 | unsupervised learning in python	| Jun-19	| done
-21 | machine learning with tree-based models | Jul-19 | in progress
-22 | deep learning in python	| Jul-19
+21 | machine learning with tree-based models | Jul-19 | done
+22 | deep learning in python	| Jul-19 | in progress
 23 | network analysis in python (part I)	| Jul-19
 
 
