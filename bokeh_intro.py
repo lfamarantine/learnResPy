@@ -13,8 +13,8 @@
 import numpy as np
 import pandas as pd
 
-# 1. Plotting with glyphs
-# -----------------------
+# 1. Basic plotting with Bokeh
+# ----------------------------
 # glyphs: visual properties of shapes are called glyphs (circles, squares, triangles, lines,
 # rectangles with properties attached to data)
 from bokeh.io import output_file, show
