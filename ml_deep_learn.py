@@ -91,9 +91,21 @@ print(results)
 # - modeler doesn't need to specify the interactions
 # - when you train the model, the neural network gets weights that find the relevant patterns to make predictions
 
+# remarks:
+# - last layers in a neural network capture more complex "higher-level" interactions
+# - weights that determine the features/interactions are created through the model training process that sets them
+#   to optimize predictive accuracy
+
 
 # 2. Optimizing a neural network with backward propagation
 # --------------------------------------------------------
+# loss function: aggregates errors in predictions from many data points into a single number & measure of
+# model's predictive performance
+# - lower loss function value means a better model
+# - goal: find the weights that give the lowest value for the loss function -> This is performed
+#         with an algo called Gradient Descent
+
+
 
 
 # 3. Building deep learning models with keras
