@@ -105,11 +105,29 @@ print(results)
 # - goal: find the weights that give the lowest value for the loss function -> This is performed
 #         with an algo called Gradient Descent
 
+# calculating slopes & updating weights..
+# ---
 
+
+# backpropagation
+# ---
+# backpropagation process:
+# 1. go back 1 layer at a time
+# 2. gradients of weights are product of:
+#       1) node value feeding into that weight
+#       2) slope of loss function wrt. node it feeds into
+#       3) slope of activation function at the node it feeds into
+# - stochastic gradient descent: when slopes are calculated on 1 batch (subset of data) at a time
 
 
 # 3. Building deep learning models with keras
 # ----------------------------------------------
+# model building steps:
+# 1. specify architecture
+# 2. compile
+# 3. fit
+# 4. predict
+
 
 
 # 4. Fine-tuning keras models
