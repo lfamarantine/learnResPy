@@ -2,6 +2,7 @@
   <dictionary name="dariopopadic">
     <words>
       <w>backpropagation</w>
+      <w>crossentropy</w>
       <w>dataset</w>
       <w>decorrelating</w>
       <w>hyperparameter</w>
@@ -9,6 +10,7 @@
       <w>overfitting</w>
       <w>preprocessing</w>
       <w>scikit</w>
+      <w>softmax</w>
       <w>underfitting</w>
     </words>
   </dictionary>

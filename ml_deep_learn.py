@@ -127,7 +127,75 @@ print(results)
 # 2. compile
 # 3. fit
 # 4. predict
+df = pd.read_csv('data/ml_dl_hourly_wages.csv')
+target = np.array(df['wage_per_hour'])
+predictors = np.array(df.drop('wage_per_hour', axis=1))
 
+# 1 regression problems
+# ---
+
+# specifying a neural network model
+# ---
+import keras
+from keras.layers import Dense
+from keras.models import Sequential
+
+# set up the model..
+n_cols = predictors.shape[1]
+model = Sequential()
+# add the 1st layer..
+model.add(Dense(50, activation='relu', input_shape=(n_cols,)))
+# add the 2nd layer..
+model.add(Dense(32, activation='relu', input_shape=(n_cols,)))
+# add the output layer..
+model.add(Dense(1))
+# compile the model..
+model.compile(optimizer='adam', loss='mean_squared_error')
+# fit the model..
+model.fit(predictors, target)
+
+# compiling & fitting a model..
+# ---
+# compile method has 2 arguments to choose:
+# 1. what optimizer to choose (controls the learning rate) - many options & mathematically complex
+#  -> "Adam" is usually a good choice
+# 2. loss function (MSE is most common choice for regression problems)
+
+# fitting: applying backpropagation & gradient descent with data to update the weights
+# - scaling data before fitting can ease optimization
+
+# 2 classification problems
+# ---
+from keras.utils import to_categorical
+# data prep..
+df = pd.read_csv('data/ml_dl_titanic_all_numeric.csv')
+predictors = df.drop('survived', axis=1).values
+# convert the target to categorical (one hot encoding)..
+target = to_categorical(df.survived)
+
+# major differences compared to regression problems:
+# - loss function: 'categorical_crossentropy' (most common lost function for classification) -> similar to
+#   log loss: lower is better
+# - metrics: add metrics='accuracy' to compile step for easy-to-understand diagnostics
+# - output layer has separate node for each possible outcome & uses 'softmax' activation (sum up to 1 so that they
+#   can be interpreted as probabilities)
+
+# # predictive features..
+n_cols = 10
+# set up the model..
+model = Sequential()
+# add the 1st layer
+model.add(Dense(32, activation='relu', input_shape=(n_cols,)))
+# add the output layer
+model.add(Dense(2, activation='softmax'))
+# compile the model
+# note: optimizer 'sgd': Stochastic Gradient Descent
+model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+# fit the model
+model.fit(predictors, target)
+
+# saving, reloading & using a model
+# ---
 
 
 # 4. Fine-tuning keras models
