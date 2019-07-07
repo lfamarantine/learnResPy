@@ -105,8 +105,77 @@ print(results)
 # - goal: find the weights that give the lowest value for the loss function -> This is performed
 #         with an algo called Gradient Descent
 
+# weight changes effect on accuracy showcase - 1 data-point
+# ---
+
+# data point you will make a prediction for..
+input_data = np.array([0, 3])
+# sample weights
+weights_0 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [1, 1]}
+# the actual target value (used to calculate the error)..
+target_actual = 3
+# make prediction using original weights..
+model_output_0 = predict_with_network(input_data, weights_0)
+# calculate error..
+error_0 = model_output_0 - target_actual
+# create weights that cause the network to make perfect prediction (3)..
+weights_1 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [1, 0]}
+# make prediction using new weights..
+model_output_1 = predict_with_network(input_data,weights_1)
+# calculate error..
+error_1 = model_output_1 - target_actual
+print(error_0)
+print(error_1)
+
+# weight changes effect on accuracy showcase - multiple data-points
+# ---
+from sklearn.metrics import mean_squared_error
+input_data = [np.array([0,3]),np.array([1,2]),np.array([-1,-2]),np.array([4,0])]
+model_output_0 = []
+model_output_1 = []
+# loop over input_data..
+for row in input_data:
+    # append prediction to model_output_0
+    model_output_0.append(predict_with_network(row, weights_0))
+    # append prediction to model_output_1
+    model_output_1.append(predict_with_network(row, weights_1))
+
+# calculate the mean squared error..
+target_actuals = np.array([1,3,5,7])
+mse_0 = mean_squared_error(target_actuals, model_output_0)
+mse_1 = mean_squared_error(target_actuals, model_output_1)
+print("Mean squared error with weights_0: %f" % mse_0)
+print("Mean squared error with weights_1: %f" % mse_1)
+
+
 # calculating slopes & updating weights..
 # ---
+
+# 1 update cycle..
+weights = np.array([0,2,1])
+input_data = np.array([1,2,3])
+target = 0
+# set the learning rate..
+learning_rate = 0.01
+# calculate the predictions..
+preds = (weights * input_data).sum()
+# calculate the error..
+error = preds - target
+# calculate the slope..
+slope = 2 * input_data * error
+# update the weights..
+weights_updated = weights - learning_rate*slope
+# get updated predictions..
+preds_updated = (weights_updated * input_data).sum()
+# calculate updated error..
+error_updated = preds_updated-target
+# original error & updated error..
+print(error)
+print(error_updated)
 
 
 # backpropagation
@@ -136,7 +205,6 @@ predictors = np.array(df.drop('wage_per_hour', axis=1))
 
 # specifying a neural network model
 # ---
-import keras
 from keras.layers import Dense
 from keras.models import Sequential
 
@@ -200,6 +268,61 @@ model.fit(predictors, target)
 
 # 4. Fine-tuning keras models
 # ----------------------------------------------
+# creating a good model requires experimentation!
+
+# understanding model optimization
+# difficulties:
+# - simultaneously optimising 1000s of parameters with complex relationships
+# - updates may not improve model meaningfully (updates to small due to low learning rate or
+#   too large if learning rate is too high)
+# - dead neuron problem: due to slope being zero, all estimations result in zero -> alternative
+#   activation function might help (poor choice of activation function)
+# .. this points can prevent the model from showing improved loss in first few epochs
+
+# validation is deep learning:
+# - commonly use a validation split rather than cross-validation
+# - deep learning widely used on big data & hence single validation score based on large amount of data is reliable
+# - repeated training from cross-validation would take a long time
+
+# early stopping: keep training while validation score is improving & stop when not
+# .. patience parameter is set to say how many epochs the model can go and improve
+# before we stop training (2 or 3 are usually reasonable values)
+# epochs: because optimization will automatically stop when it is no longer helpful, it is okay to
+# specify the maximum number of epochs as 30 for example rather than using the default of 10
+
+# model capacity
+# --
+# - closely related to overfitting / underfitting
+# - adding more layers & nodes increases capacity
+# .. start with small network & keep increasing capacity until validation score is no longer improving
+
+
+# evaluating model accuracy with validation split & optimizing optimization
+# ---
+from keras.utils import to_categorical
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.callbacks import EarlyStopping
+df = pd.read_csv('data/ml_dl_titanic_all_numeric.csv')
+predictors = df.drop('survived', axis=1).values
+# convert the target to categorical (one hot encoding)..
+target = to_categorical(df.survived)
+# preparation..
+n_cols = predictors.shape[1]
+input_shape = (n_cols,)
+# specify the model..
+model = Sequential()
+# add 2 layers & output layer..
+model.add(Dense(100, activation='relu', input_shape = input_shape))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(2, activation='softmax'))
+# compile the model..
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+# define early_stopping_monitor..
+early_stopping_monitor = EarlyStopping(patience=2)
+# fit the model
+model.fit(predictors, target, validation_split=0.3, epochs=30, callbacks=[early_stopping_monitor])
+# note: verbose=False in the fitting commands to print out fewer updates!
 
 
 
