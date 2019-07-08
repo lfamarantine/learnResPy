@@ -5,6 +5,7 @@
 # ----------------
 # installing packages: python -m pip install pandas
 # execute code via: shift+alt+e
+# change execution shortcut via: File -> Settings -> Keymap -> Other -> Execute selection in console
 
 import pandas as pd
 import os
