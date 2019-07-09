@@ -32,6 +32,16 @@ def compute_log_loss(predicted, actual, eps=1e-14):
 # - many more things can go wrong in complex models
 # - how much signal can we pull out using basic methods?
 
+# NLP
+# ---
+# data can be: text, speech, documents
+# tokenization: splitting strings into segments
+# .. tokenize on whitespace -> petro-vend fuel and fluids: petro-vend | fuel | and | fluids
+# alternative tokenize methods: whitespace & punctuation simultanously
+# in scikit-learn: CountVectorizer()
+#  1. tokenizes all the strings
+#  2. builds a vocabulary (notes down all the words that appear)
+#  3. counts the occurences of each token in the vocabulary
 
 
 # 3. Improving your model
