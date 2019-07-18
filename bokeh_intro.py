@@ -115,6 +115,7 @@ df = pd.read_csv('data/bokeh_literacy_birth_rate.csv',sep=',')
 source2 = ColumnDataSource(df)
 
 # creating rows of plots..
+# ---
 from bokeh.layouts import row
 p1 = figure(x_axis_label='fertility (children per woman)', y_axis_label='female_literacy (% population)')
 p1.circle('fertility', 'female literacy', source=source2)
@@ -125,15 +126,23 @@ output_file('ex_bokeh2.html')
 show(layout)
 
 
+# advanced layouts..
+# ---
+
+# linking plots together..
+# ---
+# - linking axes (eg. 2 or more plots react the same when zooming in)
+# - linking selections for all plots to react
+
+# annotations & guides..
+# ---
+# - help relate scale info to user (axes, grids)
+# - legends
+# - drill down into details not visible in the plot (hover tooltips)
 
 
-
-
-
-
-
-
-
+# 3. Building interactive apps with Bokeh
+# ---------------------------------------
 
 
 
