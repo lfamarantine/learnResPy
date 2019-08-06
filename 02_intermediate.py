@@ -1,5 +1,14 @@
 # Intermediate Python for Data Science
 # ------------------------------------
+# Content:
+# - numpy array operations
+# - plotting (time-series, scatter-plot, histogram etc.) & plotting methods
+# - dictionary operations
+# - pandas introduction (creating pd tables, subsetting with loc/iloc)
+# - boolean operators (and, or etc.)
+# - if-else operations, for- & while-loops
+# - random number generation
+
 
 # 1. Matplotlib
 # -------------
@@ -47,10 +56,10 @@ for i in range(0,150):
     color.append(np.random.choice(color_def))
 print(color[1])
 len(color)
-plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 2, c = color, alpha = 0.8)
+plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 0.1, c = color, alpha = 0.8)
 # text..
 plt.text(1550, 71, 'India')
-plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 2, c = color, alpha = 0.8)
+plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 0.1, c = color, alpha = 0.8)
 
 
 # 2. Dictionaries & Pandas
@@ -121,6 +130,7 @@ cars[['country']] # type(cars[['country']]) -> dataframe
 
 # get 2nd & 3rd row..
 cars[1:3]
+cars[1:] # get from 2nd row
 # .. [] works, but only offers limited functionality..
 # to get my_array[rows, columns] functionality: loc & iloc
 # loc: label-based

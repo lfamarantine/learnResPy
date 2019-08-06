@@ -1,11 +1,20 @@
 # Introduction to Python
 # ----------------------
+# Content:
+# - working directory operations
+# - list operations
+# - numpy array operations
+
 
 # 1. Python Basics
 # ----------------
 # installing packages: python -m pip install pandas
 # execute code via: shift+alt+e
 # change execution shortcut via: File -> Settings -> Keymap -> Other -> Execute selection in console
+
+# installing packages..
+# 1. download pip-file: http://pip.readthedocs.org/en/stable/installing
+# 2. terminal: get-pip.py
 
 import pandas as pd
 import os
@@ -38,9 +47,11 @@ house = [["hallway", 11.25],
          ["living room", 20],
          ['bedroom', 10.75],
          ['bathroom', 9.5]]
+print(house[0][0])
 
 # subsetting lists.. [start:end] -> [inclusive:exclusive]
 areas[0] == areas[-10]
+print(areas[-3]) # third last
 downstairs = areas[:6]
 upstairs = areas[6:]
 
@@ -78,11 +89,11 @@ help(round)
 
 # familiar functions..
 var1 = [1, 2, 3, 4]
+var1.count(3)
 var2 = True
 print(len(var1))
 # convert var2 to an integer..
 out2 = int(var2)
-
 help(sorted)
 
 # methods: call functions that belong to objects
@@ -105,10 +116,6 @@ areas.append(24.5)
 areas.reverse()
 print(areas)
 
-# installing packages..
-# 1. download pip-file: http://pip.readthedocs.org/en/stable/installing
-# 2. terminal: get-pip.py
-
 # working with packages..
 # selective import: from math import pi
 r = 0.43
@@ -121,6 +128,7 @@ print("Area: " + str(A))
 height = [1.73, 1.68, 1.71, 1.89, 1.79]
 weight = [65.4, 59.2, 63.6, 88.4, 68.7]
 weight / height ** 2
+weight + 1
 # .. use arrays!!
 
 
@@ -149,21 +157,28 @@ np_baseball = np.array(baseball)
 # print out the 4th row of np_baseball..
 print(np_baseball[3,:])
 # select the entire second column of np_baseball..
-np_weight = np_baseball[:,1]
+np_weight = np_baseball[:, 1]
 # array additions..
-conversion = np.array([0.0254,0.453592])
+conversion = np.array([0.0254, 0.453592]) # baseball[0][0] * conversion[0]
 np_baseball * conversion
 # 180*0.0254
 # 78.4*0.453592
 
 # generate random data..
+help(np.random.normal)
 height = np.round(np.random.normal(1.75, 0.2, 5000),2)
+len(height)
 weight = np.round(np.random.normal(60.32, 15, 5000),2)
 np_city = np.column_stack((height, weight))
+# alternatively..
+np_city = np.array([height, weight]).transpose()
 # some stats..
+help(np.mean)
+help(np)
 np.mean(np_baseball[:,0])
 np.median(np_baseball[:,0])
 np.corrcoef(np_baseball[:,0], np_baseball[:,1])
+np.corrcoef(np_baseball[:,0], np_baseball[:,1])[1][1]
 np.std(np_baseball[:,0])
 
 
