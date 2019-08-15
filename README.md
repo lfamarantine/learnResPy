@@ -28,6 +28,8 @@ Python exercises based on various sources
 21 | machine learning with tree-based models | Jul-19 | done
 22 | deep learning in python	| Jul-19 | done
 23 | network analysis in python (part I)	| Jul-19
+24 | statistics revision | in progress
+
 
 
 
