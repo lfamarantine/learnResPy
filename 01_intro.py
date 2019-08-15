@@ -9,6 +9,11 @@
 # 1. Python Basics
 # ----------------
 # installing packages: python -m pip install pandas
+# install specific version: python -m pip install pandas==0.24.1
+# find package version:
+import pkg_resources
+import pandas as pd
+pkg_resources.get_distribution("pandas").version
 # execute code via: shift+alt+e
 # change execution shortcut via: File -> Settings -> Keymap -> Other -> Execute selection in console
 

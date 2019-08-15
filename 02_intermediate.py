@@ -12,7 +12,9 @@
 
 # 1. Matplotlib
 # -------------
+import pkg_resources
 import matplotlib.pyplot as plt
+pkg_resources.get_distribution("matplotlib").version
 import numpy as np
 import pandas as pd
 
