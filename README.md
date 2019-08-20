@@ -11,11 +11,8 @@ Python exercises based on various sources
  1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt (in terminal)
  2. after pull, create new empty environ incl. global site-packages (delete olt env sub-folders)
  3. run pip install -r requirements.txt
-- working directory:
-import os
-os.getcwd()
-os.chdir('/Users/dariopopadic/PycharmProjects/datacamp/')
-
+- working directory: import os; os.getcwd(); os.chdir('/Users/dpopadic/PycharmProjects/learnResPy/')
+- Math Syntax on Github readme: Download MathJax Plugin for Github for Chrome (to represent $t_{0}$ in maths syntax)
 
 # Agenda
 
