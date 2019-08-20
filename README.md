@@ -1,6 +1,22 @@
 # Python ABC
 Python exercises based on various sources
 
+# Summary of Important Commands
+- installing packages: python -m pip install pandas (in terminal)
+- specific version installation: python -m pip install pandas==0.24.1
+- find package version: pip show pandas
+- code execution in .py: shift+alt+e
+- change code execution command: File -> Settings -> Keymap -> Other -> Execute selection in console
+- manage package dependencies:
+ 1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt (in terminal)
+ 2. after pull, create new empty environ incl. global site-packages (delete olt env sub-folders)
+ 3. run pip install -r requirements.txt
+- working directory:
+import os
+os.getcwd()
+os.chdir('/Users/dariopopadic/PycharmProjects/datacamp/')
+
+
 # Agenda
 
 #| topic	| date	| progress
