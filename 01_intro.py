@@ -14,12 +14,19 @@
 import pkg_resources
 import pandas as pd
 pkg_resources.get_distribution("pandas").version
+# .. alternatively: in terminal: pip show pandas
+
 # execute code via: shift+alt+e
 # change execution shortcut via: File -> Settings -> Keymap -> Other -> Execute selection in console
 
 # installing packages..
 # 1. download pip-file: http://pip.readthedocs.org/en/stable/installing
 # 2. terminal: get-pip.py
+
+# managing package dependencies when working on several platforms..
+# 1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt (in terminal)
+# 2. after pull, create new empty environ incl. global site-packages
+# 3. run pip install -r requirements.txt
 
 import pandas as pd
 import os
