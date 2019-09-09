@@ -1,5 +1,5 @@
-# Nice Features with Python
-# -------------------------
+# Commands to Remember in Python
+# ------------------------------
 import pandas as pd
 import numpy as np
 
