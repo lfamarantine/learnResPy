@@ -1,23 +1,15 @@
 # Python ABC
 Python exercises based on various sources
 
-# Summary of Important Commands
-- installing packages: python -m pip install pandas (in terminal)
-- specific version installation: python -m pip install pandas==0.24.1
-- find package version: pip show pandas
-- code execution in .py: shift+alt+e
-- change code execution command: File -> Settings -> Keymap -> Other -> Execute selection in console
-- manage package dependencies:
- 1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt (in terminal)
- 2. after pull, create new empty environ incl. global site-packages (delete olt env sub-folders)
- 3. run pip install -r requirements.txt
-- working directory: import os; os.getcwd(); os.chdir('/Users/dpopadic/PycharmProjects/learnResPy/')
-- Math Syntax on Github readme: Download MathJax Plugin for Github for Chrome (to represent $t_{0}$ in maths syntax)
+# Installation
+To run the code, clone/pull the repo and do the following:
+1. create a new empty environment including global site-packages (delete old env sub-folders)
+2. in terminal, run pip install -r requirements.txt
 
 # Agenda
 
-#| topic	| date	| progress
--| ------ | ----- | --------
+#| topic	| progress
+-| ------ | --------
 1 | intro to python for data science	| done
 2 | intermediate python for data science	| done
 3 | python data science toolbox (part I)	| done
