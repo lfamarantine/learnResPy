@@ -65,7 +65,7 @@ plt.hist(means)
 
 # probability distributions
 # ---
-from scipy.stats import bernoulli, binom
+from scipy.stats import bernoulli, binom, norm
 
 
 # bernoulli distribution
@@ -80,10 +80,22 @@ plt.hist(bernoulli.rvs(p=0.5, size=1000))
 # binomial distribution is used to model the number of successful outcomes in trials
 # where there is some consistent probability of success
 plt.hist(binom.rvs(n=2, p=0.5, size=1000)) # inputs: k, p, n
+# probability of 8 or less successes..
+prob1 = binom.cdf(k=8, n=10, p=0.8)
+print(prob1)
+# probability of all 10 successes..
+prob2 = binom.pmf(k=10, n=10, p=0.8)
+print(prob2)
 
 # normal distribution
 # ---
-
+data = norm.rvs(size=1000)
+# true probability for greater than 2..
+true_prob = 1 - norm.cdf(2)
+print(true_prob)
+# sample probability for greater than 2..
+sample_prob = sum(obs > 2 for obs in data) / len(data)
+print(sample_prob)
 
 # poission distribution
 # ---
@@ -92,6 +104,33 @@ plt.hist(binom.rvs(n=2, p=0.5, size=1000)) # inputs: k, p, n
 # example: in a 15-min time interval, there is a 20% probability that
 # you will see at least one shooting star. What's the probability that
 # you see at least one shooting star in the period of an hour?
+
+
+# 2. Exploratory Data Analysis
+# ----------------------------
+# centrality measures: mean, mode, median
+# variability measures: variance, stdev, range
+# modality: determined by # peaks a distribution contains
+# other measures: skewness, kurtosis
+
+# stdev by hand..
+import math
+nums = [1, 2, 3, 4, 5]
+mean = sum(nums)/len(nums)
+variance = sum(pow(x - mean, 2) for x in nums) / len(nums)
+std = math.sqrt(variance)
+print(std)
+help(pow)
+
+# Compute and print the actual result from numpy
+real_std = np.array(nums).std()
+print(real_std)
+
+# 3. Statistical Experiments and Significance Testing
+# ---------------------------------------------------
+
+
+
 
 
 
