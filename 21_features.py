@@ -26,7 +26,7 @@ import numpy as np
 # -- working directory:
 import os
 os.getcwd() # get directory
-os.chdir('/Users/dpopadic/PycharmProjects/learnResPy/') # set directory
+os.chdir('/Users/dariopopadic/PycharmProjects/learnResPy/') # set directory
 
 
 
@@ -38,6 +38,10 @@ for i in range(5):
     vars()['df_' +str(i)] = pd.DataFrame(np.random.rand(10, 3), columns=list('abc'))
 
 
+# -- dataframe key operations
+# .. modifying a column based on another:
+df = pd.DataFrame({'x0': np.random.normal(2, 4, 10), 'y0': np.random.normal(-2, 4, 10)})
+df.x0[df.y0 < 0] += 2
 
 
 
