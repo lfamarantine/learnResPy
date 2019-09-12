@@ -126,6 +126,21 @@ help(pow)
 real_std = np.array(nums).std()
 print(real_std)
 
+# encoding techniques..
+# ---
+from sklearn import preprocessing
+laptops = pd.read_csv("data/laptops.csv", delimiter=';')
+# create the encoder and print our encoded..
+encoder = preprocessing.LabelEncoder()
+new_vals = encoder.fit_transform(laptops["Company"])
+print(new_vals)
+# one-hot encode Company for laptops2..
+laptops2 = pd.get_dummies(data=laptops, columns=["Company"])
+print(laptops2)
+
+# sns.pairplot(weather)
+
+
 # 3. Statistical Experiments and Significance Testing
 # ---------------------------------------------------
 
