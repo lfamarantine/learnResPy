@@ -129,6 +129,7 @@ print(real_std)
 # encoding techniques..
 # ---
 from sklearn import preprocessing
+import seaborn as sns
 laptops = pd.read_csv("data/laptops.csv", delimiter=';')
 # create the encoder and print our encoded..
 encoder = preprocessing.LabelEncoder()
@@ -138,11 +139,59 @@ print(new_vals)
 laptops2 = pd.get_dummies(data=laptops, columns=["Company"])
 print(laptops2)
 
-# sns.pairplot(weather)
+# pairplot..
+df = pd.read_csv('data/airquality.csv', delimiter=',')
+sns.pairplot(df)
 
 
 # 3. Statistical Experiments and Significance Testing
 # ---------------------------------------------------
+import statsmodels as sm
+
+# power analysis
+# ---
+# power and sample size (how to calculate required sample size)
+# -> power analysis!
+# elements: effect size, significance level, power, sample size all lead
+# to a larger sample size
+
+# multiple testing
+# ---
+# bonferroni correction to account for multiple testing: alpha / n (= # tests performed)
+# running 60 distinct hypothesis tests. Compute the probability of a Type I error for 60
+# hypothesis tests with a single-test 5% significance level..
+# error rate for 10 tests with 5% significance..
+error_rate = 1 - (.95**(10))
+print(error_rate)
+
+
+# 4. Regression Models
+# --------------------
+
+# evlauting models..
+# ---
+# evaluating models: R-squared, mean absolute error (MAE), mean squared error (MSE)
+# confusion matrices: dependeing on the question at hand, precision or recall might be more
+# appropriate to concentrate on to evaluate performance
+# .. Which error metric would you recommend for a dataset? It there aren't too many outliers,
+# mean squared error would be a good choice to go with (rather than MAE).
+
+
+# missing data and outliers..
+# ---
+# techniques: dropping entire row or imputation
+# imputation: constant value, randomly selected record, mead/meadian/mode, value estimated by another model
+# useful functions: dropna, fillna, isnull
+
+
+# bias-variance tradeoff..
+# ---
+
+
+
+
+
+
 
 
 
