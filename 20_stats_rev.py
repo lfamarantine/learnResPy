@@ -1,5 +1,6 @@
 # Revision of Basic Statistics
 # ----------------------------
+# More resources: https://github.com/conordewey3/DS-Career-Resources
 
 # 1. Probability & Sampling Distributions
 # ---------------------------------------
@@ -148,12 +149,58 @@ sns.pairplot(df)
 # ---------------------------------------------------
 import statsmodels as sm
 
+# confidence intervals
+# ---
+from statsmodels.stats.proportion import proportion_confint
+# # of heads in 50 fair coin flips - compute 99% CI..
+heads = 27
+confidence_int = proportion_confint(heads, 50, 0.01)
+heads = binom.rvs(50, 0.5, size=10)
+for val in heads:
+    confidence_interval = proportion_confint(val, 50, .10)
+    print(confidence_interval)
+
+# hypothesis testing..
+# ---
+from statsmodels.stats.proportion import proportions_ztest
+df = pd.read_csv('data/ab_data.csv')
+results = df[['group','converted']]
+conv_rates = results.groupby("group").mean()
+num_control = results[results["group"]=="control"]['converted'].sum()
+total_control = len(results[results["group"]=="control"])
+num_treat = results[results['group'] == 'treatment']['converted'].sum()
+total_treat = len(results[results['group'] == 'treatment'])
+count = np.array([num_treat, num_control])
+nobs = np.array([total_treat, total_control])
+
+# z-test..
+stat, pval = proportions_ztest(count, nobs, alternative="larger")
+print('{0:0.3f}'.format(pval))
+# t-test..
+from scipy.stats import ttest_ind
+# tstat, pval = ttest_ind(asus, toshiba) # ..comparing 2 price series
+
 # power analysis
 # ---
 # power and sample size (how to calculate required sample size)
 # -> power analysis!
 # elements: effect size, significance level, power, sample size all lead
 # to a larger sample size
+from statsmodels.stats.proportion import proportion_effectsize
+std_effect = proportion_effectsize(0.2,0.25)
+# derive the required sample size..
+from statsmodels.stats.power import  zt_ind_solve_power
+sample_size = zt_ind_solve_power(effect_size=std_effect, nobs1=None, alpha=0.05, power=0.95)
+print(sample_size)
+# relationship between power and sample size..
+sample_sizes = np.array(range(5, 100))
+effect_sizes = np.array([0.2, 0.5, 0.8])
+# esults object for t-test analysis..
+from statsmodels.stats.power import TTestIndPower
+results = TTestIndPower()
+# plot of power analysis..
+results.plot_power(dep_var='nobs', nobs=sample_sizes, effect_size=effect_sizes)
+
 
 # multiple testing
 # ---
@@ -163,10 +210,32 @@ import statsmodels as sm
 # error rate for 10 tests with 5% significance..
 error_rate = 1 - (.95**(10))
 print(error_rate)
+# p-value adjustments for multiple testing..
+from statsmodels.sandbox.stats.multicomp import multipletests
+pvals = [.01, .05, .10, .50, .99]
+# create a list of the adjusted p-values..
+p_adjusted = multipletests(pvals, alpha=0.05, method='bonferroni')
 
 
 # 4. Regression Models
 # --------------------
+df = pd.read_csv("data/weather_data_austin_2010.csv")
+weather = df[['Temperature','DewPoint']]
+from sklearn.linear_model import LinearRegression
+X = np.array(weather['DewPoint']).reshape(-1,1)
+y = weather['Temperature']
+# linear regression..
+lm = LinearRegression()
+lm.fit(X, y)
+coef = lm.coef_
+preds = lm.predict(X)
+plt.scatter(X, y)
+plt.plot(X, preds, color='red')
+
+# logistic regression..
+from sklearn.linear_model import LogisticRegression
+# clf = LogisticRegression()
+# clf.fit(X, y_train.values)
 
 # evlauting models..
 # ---
@@ -175,6 +244,20 @@ print(error_rate)
 # appropriate to concentrate on to evaluate performance
 # .. Which error metric would you recommend for a dataset? It there aren't too many outliers,
 # mean squared error would be a good choice to go with (rather than MAE).
+# r-squared..
+r2 = lm.score(X, y)
+print(r2)
+# mse, mae..
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+mse = mean_squared_error(preds, y)
+print(mse)
+mae = mean_absolute_error(preds, y)
+print(mse)
+# confusion matrix..
+from sklearn.metrics import confusion_matrix
+# matrix = confusion_matrix(y_test, preds)
+# precision = precision_score(y_test, preds)
+# recall = recall_score(y_test, preds)
 
 
 # missing data and outliers..
@@ -186,10 +269,7 @@ print(error_rate)
 
 # bias-variance tradeoff..
 # ---
-
-
-
-
+# 3 types of errors: bias, variance, irreducable
 
 
 
