@@ -46,6 +46,11 @@ def compute_log_loss(predicted, actual, eps=1e-14):
 
 # 3. Improving your model
 # -----------------------
+# the pipeline workflow: repeatable way to go from raw data to trained model
+from sklearn.pipeline import Pipeline
+
+sample_df = pd.read_csv('data/sample_df.csv', delimiter='\t')
+
 
 
 # 4. Learning from the experts
