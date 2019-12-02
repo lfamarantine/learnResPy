@@ -1,6 +1,7 @@
 # Revision of Basic Statistics
 # ----------------------------
 # More resources: https://github.com/conordewey3/DS-Career-Resources
+import pandas as pd
 
 # 1. Probability & Sampling Distributions
 # ---------------------------------------
