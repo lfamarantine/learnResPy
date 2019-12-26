@@ -5,7 +5,7 @@ Installation
 --------------
 To run the code, clone/pull the repo and do the following:
 1. create a new empty environment including global site-packages (delete old env sub-folders)
-2. in terminal, run pip install -r requirements.txt
+2. in terminal, run ```pip install -r requirements.txt```
 
 Agenda
 --------------
@@ -49,20 +49,20 @@ Useful Data Science links
 Key Commands in Python Terminal
 -------------------------------
 
-- installing packages: python -m pip install pandas
+- installing packages: ```python -m pip install pandas```
 
-- specific version installation: python -m pip install pandas==0.24.1
+- specific version installation: ```python -m pip install pandas==0.24.1```
 
-- find package version: pip show pandas
+- find package version: ```pip show pandas```
 
 - alter code execution command (default is shift+alt+e): 
-File -> Settings -> Keymap -> Other -> Execute selection in console
+```File -> Settings -> Keymap -> Other -> Execute selection in console```
 
 - manage package dependencies:
-      1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt
+      1. create a requirements.txt file in root directory of project by: ```pip freeze > requirements.txt```
       2. after pull, create new empty environ incl. global site-packages (delete old env sub-folders)
-      3. run pip install -r requirements.txt
+      3. run ```pip install -r requirements.txt```
 
-- install py-package from github: pip install git+https://github.com/adamhajari/spyre.git
+- install py-package from github: ```pip install git+https://github.com/adamhajari/spyre.git```
 
 
