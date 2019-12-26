@@ -36,7 +36,7 @@ import math
 # current working directory..
 print(os.getcwd())
 # set working directory..
-os.chdir('/Users/dariopopadic/PycharmProjects/datacamp/')
+os.chdir('/Users/dariopopadic/PycharmProjects/learnResPy/')
 
 savings = 100
 result = 100 * 1.10 ** 7

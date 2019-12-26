@@ -1,5 +1,5 @@
 # Python ABC
-Python A-Z exercises based on various sources
+Python learning material with exercises based on various sources.
 
 Installation
 --------------
@@ -9,6 +9,7 @@ To run the code, clone/pull the repo and do the following:
 
 Agenda
 --------------
+
 
 #| topic	| progress
 -| ------ | --------
