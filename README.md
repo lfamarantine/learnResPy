@@ -66,6 +66,10 @@ Key Commands in Python Terminal
 
 - install py-package from github: ```pip install git+https://github.com/adamhajari/spyre.git```
 
+
+Key Commands in Python Script Editor
+------------------------------------
+
 - code completition: Preferences| Editor | General | Code Completition for some settings and ```Ctrl+Space``` 
 for code completition after calling a library for example (eg. pd. ```Ctrl+Space``` )
 
