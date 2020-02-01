@@ -1,31 +1,48 @@
-
-
+# PYTHON-EXCEL WORK
+# -----------------
 import pandas as pd
 import xlwings as xw
-
-
+from xlwings.constants import AutoFillType
+# api property: in essence, xlwings is just a smart wrapper around pywin32 on Windows and appscript on Mac
+# more info: https://www.pyxll.com/blog/tools-for-working-with-excel-and-python/
+# read data..
 df = pd.read_csv('data/euromillions.csv')
 df.sample(5)
 
-wb = xw.Book() # wb = xw.Book(filename) would open an existing file
-print(xw.apps)
+# create new excel workbook or open existing..
+# wb = xw.Book(filename) would open an existing file
+wb = xw.Book()
+# show all sheets..
 print(wb.sheets)
+# activate 2st sheet and rename..
 ws = wb.sheets["Blatt1"]
 ws.name = "EuroMillions"
 
-# copy data to excel..
+# copy data to excel starting in cell A1..
 ws.range("A1").value = df
 # clear content & copy data w\o index..
 ws.clear_contents()
 ws.range("A1").options(index=False).value = df
 
-# api property: in essence, xlwings is just a smart wrapper around pywin32 on Windows and appscript on Mac.
+ws = wb.sheets['EuroMillions']
+# get last column..
+last_column = ws.range("A1").end('right').get_address(0,0)[0]
+# ws.range('A1'.format(last_column)).api.Borders(9).LineStyle = -4119
 
-# add new data..
+# add another tab..
 wb.sheets.add('Frequencies')
 frequencies = wb.sheets['Frequencies']
 
+frequencies.range('A1').value = 'Number'
+frequencies.range('A2:A51').value = '=ZEILE()-1'
+# add a header for the frequencies
+frequencies.range('B1').value = 'Frequency'
+# insert on B2 the result of a standard excel formula
+frequencies.range('B2').value = '=ZÄHLENWENN(Euromillions!$C$2:$G$201,Frequencies!A2)'
+frequencies.range('B2').api.AutoFill(frequencies.range("B2:B51").api, AutoFillType.xlFillDefault)
 
+
+# insert a chart..
 wb.sheets.add('Graphs')
 graphs = wb.sheets['Graphs']
 nr_freq = xw.Chart()
