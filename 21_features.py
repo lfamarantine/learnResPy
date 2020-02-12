@@ -15,7 +15,7 @@ import numpy as np
 #       1. create a requirements.txt file in root directory of project by: pip freeze > requirements.txt
 #       2. after pull, create new empty environ incl. global site-packages (delete old env sub-folders)
 #       3. run pip install -r requirements.txt
-
+# -- install py-package from github: pip install git+https://github.com/adamhajari/spyre.git
 
 # PYTHON CONSOLE OPERATIONS FOR SETUP ----------------------------------
 # -- working directory:
