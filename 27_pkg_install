@@ -1,0 +1,53 @@
+# Package Installation in Python
+# ------------------------------
+
+# basic pkg structure --------
+
+my_pkg/
+    my_pkg/
+        __init__.py
+    setup.py
+
+# 1) create new project with basic pkg structure
+# 2) in setup.py, provide the appropriate pkg documentation:
+
+    from setuptools import setup
+    setup(name='my_pkg',
+          version='0.1',
+          description='What the pkg does',
+          url='http://github.com/you/my_pkg',
+          author='you,
+          author_email='you@example.com',
+          license='MIT',
+          packages=['my_pkg'],
+          zip_safe=False)
+
+# 3) install pkg locally: in terminal -> python -m pip install .
+# 4) import pkg into environment: import my_pkg as mp
+
+
+
+# more advanced pkg structure -----
+package_name/
+    bin/
+    CHANGES.txt
+    docs/
+    LICENSE.txt
+    MANIFEST.in
+    README.txt
+    setup.py
+    package_name/
+          __init__.py
+          module1.py
+          module2.py
+          test/
+              __init__.py
+              test_module1.py
+              test_module2.py
+
+
+
+
+
+
+
