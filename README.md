@@ -13,7 +13,7 @@ Agenda
 
 #| topic	| progress
 -| ------ | --------
-1 | intro to python for data science	| complete
+1 | intro to python	| complete
 2 | intermediate python for data science	| complete
 3 | python data science toolbox (part I)	| complete
 4 | python data science toolbox (part II)	| complete
