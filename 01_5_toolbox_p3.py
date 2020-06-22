@@ -200,6 +200,7 @@ e1 = Employee("Max King", 100)
 e2 = Employee("Max King", 100)
 # they are not the same..
 e1==e2
+
 # this is because py compares the references, not the actual data
 # to circumvent this, use __eq__ and other operators in the class
 
@@ -212,15 +213,88 @@ e1==e2
 # - __lt__ for <
 # there is also __hash__ method, that allows equal objects to be treated the same
 
-
 class Employee:
     def __init__(self, name, salary=30000):
         self.name = name
         self.salary = salary
 
+    # compare keys and class of keys too
     def __eq__(self, other):
-        return (self.salary == other.salary and self.name == other.name)
+        return (self.salary == other.salary and self.name == other.name and type(self) == type(other))
 
 e1 = Employee("Max King", 100)
 e2 = Employee("Max King", 100)
 e1==e2
+
+# class referencing --------------------------------
+# what happens when an object is compared to an object of a child class? child's classed is called
+# printable representation of a class by using one of:
+# 1) __str__ (informal)
+# 2) __repr__ (for developers)
+
+# an example..
+
+class Customer:
+
+    def __init__(self, name, balance):
+        self.name, self.balance = name, balance
+
+    def __str__(self):
+        cust_str = """
+        Customer: 
+            name: {name}
+            balance: {balance}
+        """.format(name = self.name, \
+                   balance = self.balance)
+        return cust_str
+
+c_0 = Customer("Max King", 1200)
+print(c_0)
+
+
+class Customer:
+
+    def __init__(self, name, balance):
+        self.name, self.balance = name, balance
+
+    def __repr__(self):
+        return "Customer('{name}', {balance}).format(name = self.name, balance = self.balance)"
+
+c_0 = Customer("Max King", 1200)
+print(c_0)
+
+
+# exceptions ----------------------------------------
+
+# try - except - finally
+# an example..
+def cust_inv(x, ind):
+  try:
+    return 1/x[ind]
+  except ZeroDivisionError:
+    print("Cannot divide by zero!")
+  except IndexError:
+    print("Index out of range!")
+
+a = [0, 3, 5, 9]
+print(cust_inv(a, 1))
+print(cust_inv(a, 0))
+print(cust_inv(a, 4))
+
+
+
+# other useful points ---------------------------------
+# when to use inheritance?
+# as a rule of thumb, if the class hierarchy violates the liskov of substitution principle, one should
+# not be using inheritance -> no lsp = no inheritance
+# liskov substitution principle: wherever employee works, manager should work too
+
+
+
+
+
+
+
+
+
+
