@@ -192,7 +192,33 @@ print(mdf.values)
 print(mdf.created_on)
 
 
+# operators in classes ----------------------------
+# let's say you want to compare two instances of a class that have the same data:
+e1 = Employee("Max King", 100)
+e2 = Employee("Max King", 100)
+# they are not the same..
+e1==e2
+# this is because py compares the references, not the actual data
+# to circumvent this, use __eq__ and other operators in the class
+
+# methods:
+# - __eq__ for equal
+# - __ne__ for not equal
+# - __ge__ for >=
+# - __le__ for <=
+# - __gt__ for >
+# - __lt__ for <
+# there is also __hash__ method, that allows equal objects to be treated the same
 
 
+class Employee:
+    def __init__(self, name, salary=30000):
+        self.name = name
+        self.salary = salary
 
+    def __eq__(self, other):
+        return (self.salary == other.salary and self.name == other.name)
 
+e1 = Employee("Max King", 100)
+e2 = Employee("Max King", 100)
+e1==e2
