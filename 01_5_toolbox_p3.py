@@ -101,6 +101,8 @@ emp.salary
 # encapsulation (bundling of data methods)
 
 # class methods ----------------------------
+# a class can only have one __init__ method and if one wants to define alternative constructors, @classmethod
+# is used
 # - classmethod
 # - staticmethod
 # Main use of class methods is defining methods that return an instance of the class
