@@ -288,10 +288,15 @@ print(cust_inv(a, 4))
 # as a rule of thumb, if the class hierarchy violates the liskov of substitution principle, one should
 # not be using inheritance -> no lsp = no inheritance
 # liskov substitution principle: wherever employee works, manager should work too
+# - all classes are public in py!
 
 
-
-
+# data access management via:
+# 1) naming conventions:
+#       starts with a single _ (internal, not part of public API) -> obj._att_name, obj._method_name
+#       starts with a double __ (internal, closest to private class) -> obj.__att_name, obj.__method_name used mainly
+#       to prevent name clashes from inherited classes. So only use to prevent attributes being inherited.
+# 2) @property to customise access
 
 
 

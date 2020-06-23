@@ -44,6 +44,12 @@ result = 100 * 1.10 ** 7
 # type conversion..
 print("I started with $" + str(savings) + " and now have $" + str(result) + ". Awesome!")
 
+# string formatting with variables
+mn = 5
+"my_num is {}".format(mn)
+ms = "hello"
+"my_num is {}, and my_str is \"{}\".".format(mn, ms)
+
 
 # 2. Python Lists
 # ----------------
