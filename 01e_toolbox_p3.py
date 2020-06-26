@@ -296,8 +296,26 @@ print(cust_inv(a, 4))
 #       starts with a single _ (internal, not part of public API) -> obj._att_name, obj._method_name
 #       starts with a double __ (internal, closest to private class) -> obj.__att_name, obj.__method_name used mainly
 #       to prevent name clashes from inherited classes. So only use to prevent attributes being inherited.
-# 2) @property to customise access
+# 2) @property to customise access (to control attribute access)
+#       use "protected" attribute with leading _ to store data
 
+# an example
+
+class Employer:
+    def __init__(self, name, new_salary):
+        self.salary = new_salary
+
+    @property
+    def salary(self):
+        return self._salary
+
+    @salary.setter
+    def salary(self, new_salary):
+        if new_salary < 0:
+            raise ValueError("Invalid Salary")
+        self.salary = new_salary
+
+emp = Employer("Max King", 3000)
 
 
 
