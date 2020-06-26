@@ -300,22 +300,54 @@ print(cust_inv(a, 4))
 #       use "protected" attribute with leading _ to store data
 
 # an example
-
-class Employer:
-    def __init__(self, name, new_salary):
-        self.salary = new_salary
+class Customer:
+    def __init__(self, name, new_bal):
+        self.name = name
+        if new_bal < 0:
+            raise ValueError("Invalid balance!")
+        self._balance = new_bal
 
     @property
-    def salary(self):
-        return self._salary
+    def balance(self):
+        return self._balance
 
-    @salary.setter
-    def salary(self, new_salary):
-        if new_salary < 0:
-            raise ValueError("Invalid Salary")
-        self.salary = new_salary
+    # add a setter balance() method
+    @balance.setter
+    def balance(self, new_bal):
+        # validate
+        if new_bal < 0:
+            raise ValueError("Invalid balance!")
+        self._balance = new_bal
+        print("Setter method called")
 
-emp = Employer("Max King", 3000)
+cust = Customer("Max King", 30000)
+cust.balance = 3000
+print(cust.balance)
+
+
+# read-only "created_at" attribute for the inherited pd class example from above..
+
+class ModDF(pd.DataFrame):
+    def __init__(self, *args, **kwargs):
+        pd.DataFrame.__init__(self, *args, **kwargs)
+        self._created_at = datetime.date.today()
+
+    def to_csv(self, *args, **kwargs):
+        temp = self.copy()
+        temp["created_at"] = self._created_at
+        pd.DataFrame.to_csv(temp, *args, **kwargs)
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+
+df = ModDF({"col1": [1, 2], "col2": [3, 4]})
+
+try:
+    df.created_at = '2035-07-13'
+except AttributeError:
+    print("Could not set attribute")
 
 
 
