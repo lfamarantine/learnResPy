@@ -23,7 +23,7 @@ my_pkg/
           zip_safe=False)
 
 # 3) install pkg locally: in terminal -> python -m pip install .
-# 4) install pkg in other project locally -> python -m pip install -e /Users/dariopopadic/PycharmProjects/my_pkg
+# 4) install pkg in other project locally -> python -m pip install -e /Users/dariopopadic/PycharmProjects/my_pkg.py
 # 4) import pkg into environment: import my_pkg as mp
 
 
