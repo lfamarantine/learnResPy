@@ -14,10 +14,11 @@ Agenda
 #| topic	| progress
 -| ------ | --------
 1a | intro to python	| complete
-1b | intermediate python for data science	| complete
-1c | python data science toolbox (part I)	| complete
-1d | python data science toolbox (part II)	| complete
-1e | python data science toolbox (part III)	| complete
+1b | python data science toolbox (part I) | complete
+1c | python data science toolbox (part II)	| complete
+1d | python data science toolbox (part III)	| complete
+1e | python classes	| complete
+1f | python tricks	| in progress
 2a | importing data in python (part I)	| complete
 2b | importing data in python (part II)	| complete
 3a | cleaning data in python	| complete
