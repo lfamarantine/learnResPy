@@ -13,32 +13,37 @@ Agenda
 
 #| topic	| progress
 -| ------ | --------
-1 | intro to python	| complete
-2 | intermediate python for data science	| complete
-3 | python data science toolbox (part I)	| complete
-4 | python data science toolbox (part II)	| complete
-5 | importing data in python (part I)	| complete
-6 | importing data in python (part II)	| complete
-7 | cleaning data in python	| complete
-8 | pandas foundations	| complete
-9 | manipulating dataframes with pandas | complete	
-10 | merging dataframes with pandas	| complete
-11 | introduction to data visualization with python | in progress	
-12 | interactive data visualization with bokeh | in progress
-13 | statistical thinking in python (part I) | complete
-14 | statistical thinking in python (part II) | complete
-15 | supervised learning with scikit-learn	| complete	
-16 | machine learning with tree-based models | complete
-17 | unsupervised learning in python	| complete
-18 | deep learning in python | complete
-19 | machine learning with the experts: school budgets | in progress
-20 | statistics revision | complete
-21 | python command library | in progress
-22 | aws setup | in progress
-23 | machine learning algo concept illustrations | in progress
-24 | linear algebra operations | complete
-25 | optimisation in python | in progress
-26 | shell operations | in progress
+1a | intro to python	| complete
+1b | intermediate python for data science	| complete
+1c | python data science toolbox (part I)	| complete
+1d | python data science toolbox (part II)	| complete
+1e | python data science toolbox (part III)	| complete
+2a | importing data in python (part I)	| complete
+2b | importing data in python (part II)	| complete
+3a | cleaning data in python	| complete
+3b | pandas foundations	| complete
+3c | manipulating dataframes with pandas | complete	
+3d | merging dataframes with pandas	| complete
+4a | introduction to data visualization with python | in progress	
+4b | interactive data visualization with bokeh | in progress
+4c | python & excel | complete
+5a | statistical thinking in python (part I) | complete
+5b | statistical thinking in python (part II) | complete
+5c | linear algebra in python | in progress
+5d | basics on optimisation problems | in progress
+6a | supervised learning with scikit-learn	| complete	
+6b | machine learning with tree-based models | complete
+6c | unsupervised learning in python	| complete
+6d | deep learning in python | complete
+6e | machine learning with the experts: kaggle school budgets | in progress
+6f | machine learning algo concept illustrations | in progress
+7a | statistics revision | complete
+8a | useful python commands | in progress
+8b | aws setup | in progress
+8c | shell operations | in progress
+8d | third-party data downloads | in progress
+9a | package dev in py | complete
+
 
 
 Useful Data Science links
