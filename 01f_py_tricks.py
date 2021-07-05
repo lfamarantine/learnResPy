@@ -1,5 +1,5 @@
 # ---------------   Useful Tricks from the Book 'Python Tricks' by Dan Bader   ---------------
-
+import numpy as np
 
 # optional function arguments
 def foo(x, *args, **kwargs):
@@ -53,3 +53,30 @@ Car('bmw', 'blue') # repr
 print(Car('bmw', 'blue')) # print
 
 
+
+# lambda function evaluated immediately
+# -- double
+(lambda x, y: (x + y)**2)(2, 3)
+# -- vector
+x_1 = np.arange(1, 11)
+y_1 = np.arange(11, 21)
+(lambda x, y: (x + y)**2)(x_1, y_1)
+
+# decorators
+def strong(func):
+    def wrapper():
+        return '<strong>' + func() + '</strong>'
+    return wrapper
+
+def emphasis(func):
+    def wrapper():
+        return '<em>' + func() + '</em>'
+    return wrapper
+
+@strong
+@emphasis
+def greet():
+    return 'Hello!'
+
+
+greet()
