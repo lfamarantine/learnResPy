@@ -1,7 +1,8 @@
 # ---------------   Useful Tricks from the Book 'Python Tricks' by Dan Bader   ---------------
 import numpy as np
+import math
 
-# optional function arguments
+# ----- optional function arguments
 def foo(x, *args, **kwargs):
 
     print(x)
@@ -17,7 +18,7 @@ foo('hello', 1, 2, 3, 'red', col_2='blue')
 foo('hello', 1, 2, 3, col_1='red', col_2='blue')
 
 
-# printing vectors
+# ----- printing vectors
 def print_vector(x, y, z):
     print('<%s, %s, %s>' % (x, y, z))
 
@@ -25,7 +26,7 @@ def print_vector(x, y, z):
 print_vector(1, 2, 3)
 
 
-# every Class needs a __repr__
+# ----- every Class needs a __repr__
 class Car:
     def __init__(self, color, mileage):
         self.color = color
@@ -54,7 +55,7 @@ print(Car('bmw', 'blue')) # print
 
 
 
-# lambda function evaluated immediately
+# ----- lambda function evaluated immediately
 # -- double
 (lambda x, y: (x + y)**2)(2, 3)
 # -- vector
@@ -62,7 +63,8 @@ x_1 = np.arange(1, 11)
 y_1 = np.arange(11, 21)
 (lambda x, y: (x + y)**2)(x_1, y_1)
 
-# decorators
+
+# ----- decorators
 def strong(func):
     def wrapper():
         return '<strong>' + func() + '</strong>'
@@ -80,3 +82,55 @@ def greet():
 
 
 greet()
+
+
+
+# ----- Instance, Class, and Static Methods Demystified
+# - generic
+class MyClass:
+    # - instance method can modify class + object state
+    def method(self):
+        return ('instance method called', self)
+
+    # - independent method, works like a simple function
+    # - used to signal to the developer the class design
+    @staticmethod
+    def staticmethod(): # can't modify any object
+        return 'static method called'
+
+    # - allow you to formulate alternative constructors for your class (since only one __init__ possible)
+    # - can't modify object instance but class state
+    @classmethod
+    def classmethod(cls):
+        return ('class method called', cls)
+
+
+MyClass().method()
+MyClass().staticmethod()
+MyClass().classmethod()
+
+# - practical example
+class Pizza:
+    def __init__(self, ingredients):
+        self.ingredients = ingredients
+
+    def __repr__(self):
+        return f'Pizza({self.ingredients!r})'
+
+    @classmethod
+    def margherita(cls):
+        return cls(['mozzarella', 'tomato'])
+
+    @classmethod
+    def prosciutto(cls):
+        return cls(['mozzarella', 'tomato', 'ham'])
+
+    @staticmethod
+    def circle_area(radius):
+        return radius ** 2 * math.pi
+
+
+Pizza.margherita()
+Pizza.prosciutto()
+Pizza.circle_area(4)
+
