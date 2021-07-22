@@ -1,16 +1,6 @@
 # Python ABC
 Python learning material with exercises based on various sources.
 
-Installation
---------------
-To run the code, clone/pull the repo and do the following:
-1. create a new empty environment including global site-packages (delete old env sub-folders)
-2. in terminal, run ```pip install -r requirements.txt```
-
-Agenda
---------------
-
-
 #| topic	| progress
 -| ------ | --------
 1a | intro to python	| complete
