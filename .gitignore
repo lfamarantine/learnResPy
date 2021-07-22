@@ -1,2 +1,3 @@
 # ignore folder named venv..
 venv/
+.idea*
