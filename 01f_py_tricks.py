@@ -50,8 +50,9 @@ class Car:
         return f'{self.__class__.__name__}(' f'{self.color!r}, {self.mileage})'
 
 
+print(Car('bmw', 'blue')) # str
 Car('bmw', 'blue') # repr
-print(Car('bmw', 'blue')) # print
+
 
 
 

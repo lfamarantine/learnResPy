@@ -70,8 +70,6 @@ np.linspace(2.0, 3.0, num=5)
 df['Pressure'].describe()
 df['Pressure'].map({1:0})
 
-# 6. pivot tables
-
 
 
 

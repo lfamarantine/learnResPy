@@ -16,23 +16,26 @@ data = dict(zipped)
 # dataframe..
 df = pd.DataFrame(data)
 
-# set column names..
-df.columns = ['US', 'RU', 'UK']
+# set row names..
+df.index = ['US', 'RU', 'UK']
 
-df_tmp = pd.read_csv('data/gapminder.csv')
+df_tmp = pd.read_csv('data/gapminder.csv', index_col=0).reset_index(drop=True)
 df = df_tmp.iloc[:, [3]]
 df.index = df_tmp['country']
 
 # create array of DataFrame values..
-np_vals = df.values
+np_vals = df_tmp['gdp_cap'].values
 # create new array of base 10 logarithm values..
 np_vals_log10 = np.log10(np_vals)
 
 # create array of new DataFrame by passing df to np.log10()..
-df_log10 = np.log10(df)
+df_log10 = np.log10(df_tmp['gdp_cap'])
 
 # cleaning, naming & parsing data..
 # pd.read_csv(filepath, header=None, names=col_names, na_values={'sunspots': [' -1']}, parse_dates=[[0, 1, 2]])
+df = pd.read_csv('data/gapminder2.csv', index_col=0, na_values=['Afghanistan']).reset_index(drop=True)
+df.head()
+
 # exporting data..
 df.to_csv(df)
 
@@ -46,7 +49,7 @@ df2 = pd.read_csv(data_file, header=0, names=new_labels)
 file_messy = 'data/messy_stock_data.tsv.txt'
 df1 = pd.read_csv(file_messy)
 print(df1.head())
-df2 = pd.read_csv(file_messy, delimiter=' ', header=3, comment='#')
+df2 = pd.read_csv(file_messy, delimiter=' ', header=5, comment='#')
 print(df2.head())
 
 # save as csv..
@@ -59,7 +62,8 @@ df2.to_excel('data/file_clean.xlsx', index=False, sheet_name='s0')
 help(pd.read_csv)
 df = pd.read_csv('data/temperatures.csv')
 df.info()
-df.iloc[:,0:3] = df.iloc[:,0:3].apply(pd.to_numeric, errors='coerce')
+df = df.iloc[:,0:3] = df.iloc[:,0:3].apply(pd.to_numeric, errors='coerce')
+df.dropna(inplace=True)
 df.plot(subplots=True)
 
 
@@ -199,16 +203,13 @@ df['Date'].dt.hour
 population = pd.read_csv('data/world_population.csv', parse_dates=True, index_col='Year')
 
 
-# 4. Case Study
-# -------------
-
-
-
-
-
-
-
-
+# ---- numpy good to know features
+f = lambda x, y: 10 * x + y
+np.fromfunction(f, (5, 4), dtype=int)
+np.arange(12).reshape(4, 3).ravel()
+np.hsplit(np.random.normal(size=12), 3)
+np.clip(np.arange(5), a_min=2, a_max=3)
+np.take([4, 3, 5, 7, 6, 8], [0, 1, 4])
 
 
 
