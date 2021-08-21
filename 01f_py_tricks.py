@@ -135,3 +135,18 @@ Pizza.margherita()
 Pizza.prosciutto()
 Pizza.circle_area(4)
 
+
+# ----- Exploring modules / objects
+# find all classes/functions of an object
+import datetime
+dir(datetime)
+dir(datetime.date)
+# find a specific object (eg. date)
+xi = [i for i in dir(datetime) if "date" in i.lower()]
+
+# install venv from terminal:
+# 1. python3 -m venv ./venv
+# 2. source ./venv/bin/activate # to explicitly active venv & tell pip where to install pkg's
+
+
+
