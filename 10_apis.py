@@ -11,4 +11,5 @@ if __name__ == "__main__":
 
 # run in terminal with: FLASK_APP=10_apis.py flask run
 # list all running processes in terminal: ps -a
+# r shiny with flask api's: https://predictivehacks.com/how-to-share-flask-apis-with-shiny-applications/
 
