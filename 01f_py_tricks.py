@@ -66,12 +66,16 @@ y_1 = np.arange(11, 21)
 
 
 # ----- decorators
+from functools import wraps
+
 def strong(func):
+    @wraps(func) # optional but recommnded: to copy meta data from inner function to outer
     def wrapper():
         return '<strong>' + func() + '</strong>'
     return wrapper
 
 def emphasis(func):
+    @wraps(func)
     def wrapper():
         return '<em>' + func() + '</em>'
     return wrapper
@@ -83,6 +87,7 @@ def greet():
 
 
 greet()
+help(greet)
 
 
 
