@@ -50,8 +50,9 @@ class Car:
         return f'{self.__class__.__name__}(' f'{self.color!r}, {self.mileage})'
 
 
+print(Car('bmw', 'blue')) # str
 Car('bmw', 'blue') # repr
-print(Car('bmw', 'blue')) # print
+
 
 
 
@@ -65,12 +66,16 @@ y_1 = np.arange(11, 21)
 
 
 # ----- decorators
+from functools import wraps
+
 def strong(func):
+    @wraps(func) # optional but recommnded: to copy meta data from inner function to outer
     def wrapper():
         return '<strong>' + func() + '</strong>'
     return wrapper
 
 def emphasis(func):
+    @wraps(func)
     def wrapper():
         return '<em>' + func() + '</em>'
     return wrapper
@@ -82,6 +87,7 @@ def greet():
 
 
 greet()
+help(greet)
 
 
 
@@ -133,4 +139,19 @@ class Pizza:
 Pizza.margherita()
 Pizza.prosciutto()
 Pizza.circle_area(4)
+
+
+# ----- Exploring modules / objects
+# find all classes/functions of an object
+import datetime
+dir(datetime)
+dir(datetime.date)
+# find a specific object (eg. date)
+xi = [i for i in dir(datetime) if "date" in i.lower()]
+
+# install venv from terminal:
+# 1. python3 -m venv ./venv
+# 2. source ./venv/bin/activate # to explicitly active venv & tell pip where to install pkg's
+
+
 

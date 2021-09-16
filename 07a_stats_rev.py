@@ -1,6 +1,5 @@
-# Revision of Basic Statistics
-# ----------------------------
-# More resources: https://github.com/conordewey3/DS-Career-Resources
+# asic Statistics in Py
+# ----------------------
 import pandas as pd
 
 # 1. Probability & Sampling Distributions

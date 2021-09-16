@@ -15,9 +15,8 @@ Python learning material with exercises based on various sources.
 3b | pandas foundations	| complete
 3c | manipulating dataframes with pandas | complete	
 3d | merging dataframes with pandas	| complete
-4a | introduction to data visualization with python | in progress	
-4b | interactive data visualization with bokeh | in progress
-4c | python & excel | complete
+4a | interactive data visualization with bokeh | in progress
+4b | python & excel | complete
 5a | statistical thinking in python (part I) | complete
 5b | statistical thinking in python (part II) | complete
 5c | linear algebra in python | in progress

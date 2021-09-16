@@ -29,17 +29,20 @@ import matplotlib.pyplot as plt
 # - 2 categories: classification (target variable consists of categories) or regression (target variable is continuous)
 
 from sklearn import datasets
+from scipy import stats
 
 # k-Nearest Neighbors
 # ---
 # basic idea: predict the label of a data point by: 1. looking at the 'k' closest labeled data
 # points & 2. taking majority vote
 from sklearn.neighbors import KNeighborsClassifier
-df = pd.read_csv('data/ml_house-votes-84.csv',sep=',')
+df = pd.read_csv('data/ml_house-votes-84.csv', sep=',', na_values='?')
 
 # create arrays for the features and the response variable..
+df = df.dropna().reset_index(drop=True)
 y = df['party'].values
 X = df.drop('party', axis=1).values
+
 # create a k-NN classifier with 6 neighbors..
 knn = KNeighborsClassifier(n_neighbors=6)
 # fit the classifier to the data..
@@ -154,7 +157,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
 reg = LinearRegression()
 # compute 5-fold cross-validation scores..
-cv_scores = cross_val_score(reg, X, y, cv=5)
+cv_scores = cross_val_score(reg, X, y, cv=5, scoring='r2')
 print(cv_scores)
 print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
 
@@ -163,7 +166,7 @@ print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
 from sklearn.linear_model import Lasso
 lasso = Lasso(alpha=0.4, normalize=True)
 lasso.fit(X,y)
-print(lasso.coef_)
+print("slope: {} & intercept: {} & r-squared: {}".format(lasso.coef_[0], lasso.intercept_[0], lasso.score(X, y)))
 
 from sklearn.linear_model import Ridge
 ridge = Ridge(alpha=0.4, normalize=True)

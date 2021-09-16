@@ -141,11 +141,6 @@ show(layout)
 # - drill down into details not visible in the plot (hover tooltips)
 
 
-# 3. Building interactive apps with Bokeh
-# ---------------------------------------
-
-
-
 
 
 
