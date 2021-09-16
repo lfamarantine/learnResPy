@@ -176,9 +176,9 @@ pd.merge_ordered(stocks, oil, on='Date', fill_method='ffill')
 merged = pd.merge_asof(auto, oil, left_on='yr', right_on='Date')
 
 
-# 4. Case Study
-# -------------
-# see references..
+# Pandas Accessors
+# ----------------
+
 
 
 
