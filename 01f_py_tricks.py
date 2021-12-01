@@ -69,7 +69,7 @@ y_1 = np.arange(11, 21)
 from functools import wraps
 
 def strong(func):
-    @wraps(func) # optional but recommnded: to copy meta data from inner function to outer
+    @wraps(func) # optional but recommended: to copy meta data from inner function to outer
     def wrapper():
         return '<strong>' + func() + '</strong>'
     return wrapper
@@ -149,9 +149,23 @@ dir(datetime.date)
 # find a specific object (eg. date)
 xi = [i for i in dir(datetime) if "date" in i.lower()]
 
-# install venv from terminal:
+
+# ----- Install venv from terminal:
 # 1. python3 -m venv ./venv
 # 2. source ./venv/bin/activate # to explicitly active venv & tell pip where to install pkg's
 
 
+# ----- Generators
+# definition: A generator is a much more convenient way of writing an iterator
+# example:
+def countdown(n):
+    print("Counting down from", n)
+    while n > 0:
+        yield n
+        n -= 1
 
+
+k = countdown(4)
+k # <generator object countdown at 0x0000022C5197DD60>
+k.__next__() # Counting down from 4 <4>
+k.__next__() # Counting down from 3 <3>
