@@ -169,3 +169,14 @@ k = countdown(4)
 k # <generator object countdown at 0x0000022C5197DD60>
 k.__next__() # Counting down from 4 <4>
 k.__next__() # Counting down from 3 <3>
+
+
+# ----- Assertions
+example = [5, 3, 1, 6, 6]
+booleans = [False, False, True, False]
+any(example) # True > all numbers above 0 are ‘Truthy’
+any(booleans) # True
+all(example) # True
+all(booleans) # False
+
+
